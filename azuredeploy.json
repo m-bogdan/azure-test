@@ -4,7 +4,7 @@
 	"parameters" : {
 		"location": {
 			"type": "String",
-			"defaultValue" : "North Europe"
+			"defaultValue" : "West Europe"
 		},
 		"virtualNetworkName":{
 			"type" : "string",
@@ -47,10 +47,6 @@
 			{
 				"name": "[parameters('subnet1Name')]",
 				"addressPrefix": "[parameters('subnet1Prefix')]"
-			},
-			{
-				"name": "[parameters('subnet2Name')]",
-				"addressPrefix": "[parameters('subnet2Prefix')]"
 			}
 			]
 		}
