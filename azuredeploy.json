@@ -6,10 +6,6 @@
 			"type": "String",
 			"defaultValue" : "West Europe"
 		},
-		"resourceGroupName": {
-			"type" : "string",
-			"defaultValue" : "Bogdan-ARM-ResourceGroup"
-		},
 		"virtualNetworkName": {
 			"type" : "string",
 			"defaultValue" : "Bogdan-ARM-VirtualNetworks-Subnet"
