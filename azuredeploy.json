@@ -8,7 +8,7 @@
 		},
 		"virtualNetworkName":{
 			"type" : "string",
-			"defaultValue":"Bogdan-ARM-VirtualNetwork-Subnet"
+			"defaultValue":"Bogdan-ARM-VirtualNetwork"
 		},
 		"addressPrefix":{
 			"type" : "string",
@@ -16,11 +16,19 @@
 		},
 		"subnet1Name": {
 			"type" : "string",
-			"defaultValue" : "Test-Vienna"
+			"defaultValue" : "Bogdan-ARM-Subnet-Vienna"
 		},
 		"subnet1Prefix" : {
 			"type" : "string",
-			"defaultValue" : "10.0.84.0/27"
+			"defaultValue" : "10.0.84.1/27"
+		},
+		"subnet2Name": {
+			"type" : "string",
+			"defaultValue" : "Bogdan-ARM-Subnet-Innsbruck"
+		},
+		"subnet2Prefix" : {
+			"type" : "string",
+			"defaultValue" : "10.0.84.2/27"
 		}
 	},
 	"resources": [
@@ -39,6 +47,10 @@
 			{
 				"name": "[parameters('subnet1Name')]",
 					"addressPrefix": "[parameters('subnet1Prefix')]"
+			},
+			{
+				"name": "[parameters('subnet2Name')]",
+					"addressPrefix": "[parameters('subnet2Prefix')]"
 			}
 			]
 		}
