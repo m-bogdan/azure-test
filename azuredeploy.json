@@ -12,7 +12,7 @@
 		},
 		"addressPrefix":{
 			"type" : "string",
-			"defaultValue" : "10.0.84.0/24"
+			"defaultValue" : "10.0.0.0/16"
 		},
 		"subnet1Name": {
 			"type" : "string",
@@ -20,7 +20,7 @@
 		},
 		"subnet1Prefix" : {
 			"type" : "string",
-			"defaultValue" : "10.0.84.1/27"
+			"defaultValue" : "10.0.1.0/24"
 		},
 		"subnet2Name": {
 			"type" : "string",
@@ -28,7 +28,7 @@
 		},
 		"subnet2Prefix" : {
 			"type" : "string",
-			"defaultValue" : "10.0.84.2/27"
+			"defaultValue" : "10.0.2.0/24"
 		}
 	},
 	"resources": [
