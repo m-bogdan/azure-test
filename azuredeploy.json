@@ -4,13 +4,13 @@
 	"parameters" : {
 		"location": {
 			"type": "String",
-			"defaultValue" : "West Europe"
+			"defaultValue" : "westeurope"
 		},
-		"virtualNetworkName": {
+		"virtualNetworkName":{
 			"type" : "string",
-			"defaultValue" : "Bogdan-ARM-VirtualNetworks-Subnet"
+			"defaultValue":"Bogdan-ARM-VirtualNetwork-Subnet"
 		},
-		"addressPrefix": {
+		"addressPrefix":{
 			"type" : "string",
 			"defaultValue" : "10.0.84.0/24"
 		},
@@ -34,10 +34,10 @@
 	"resources": [
 	{
 		"apiVersion": "2014-06-01",
-		"type" : "Microsoft.ClassicNetwork/virtualNetworks",
-		"name" : "[parameters('virtualNetworkName')]",
+		"type": "Microsoft.ClassicNetwork/virtualNetworks",
+		"name": "[parameters('virtualNetworkName')]",
 		"location": "[parameters('location')]",
-		"properties" : {
+		"properties": {
 			"addressSpace": {
 				"addressPrefixes": [
 					"[parameters('addressPrefix')]"
