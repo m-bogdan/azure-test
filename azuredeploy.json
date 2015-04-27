@@ -4,7 +4,7 @@
 	"parameters" : {
 		"location": {
 			"type": "String",
-			"defaultValue" : "westeurope"
+			"defaultValue" : "West Europe"
 		},
 		"virtualNetworkName":{
 			"type" : "string",
