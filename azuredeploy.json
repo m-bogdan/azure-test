@@ -8,7 +8,7 @@
 		},
 		"virtualNetworkName":{
 			"type" : "string",
-			"defaultValue":"Test-ARM-Templates"
+			"defaultValue":"Bogdan-ARM-Subnet-Template"
 		},
 		"addressPrefix":{
 			"type" : "string",
