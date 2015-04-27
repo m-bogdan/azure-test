@@ -6,11 +6,15 @@
 			"type": "String",
 			"defaultValue" : "westeurope"
 		},
-		"virtualNetworkName":{
+		"resourceGroupName": {
 			"type" : "string",
-			"defaultValue":"Bogdan-ARM-Subnet-Template"
+			"defaultValue" : "Bogdan-ARM-ResourceGroup"
 		},
-		"addressPrefix":{
+		"virtualNetworkName": {
+			"type" : "string",
+			"defaultValue" : "Bogdan-ARM-VirtualNetworks-Subnet"
+		},
+		"addressPrefix": {
 			"type" : "string",
 			"defaultValue" : "10.0.84.0/24"
 		},
@@ -32,6 +36,12 @@
 		}
 	},
 	"resources": [
+	{
+		"apiVersion": "2014-06-01",
+		"type": "resourceGroups",
+		"name": "[parameters('resourceGroupName')]",
+		"location": "[parameters('location')]"
+	},
 	{
 		"apiVersion": "2014-06-01",
 		"type": "Microsoft.ClassicNetwork/virtualNetworks",
