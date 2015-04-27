@@ -43,6 +43,20 @@
 					"[parameters('addressPrefix')]"
 				]
 			},
+			"subnets": [
+			{
+				"name": "[parameters('subnet1Name')]",
+				"properties" : {
+					"addressPrefix": "[parameters('subnet1Prefix')]"
+				}
+			},
+			{
+				"name": "[parameters('subnet2Name')]",
+				"properties" : {
+					"addressPrefix": "[parameters('subnet2Prefix')]"
+				}
+			}
+			]
 		}
 	}
 	]
