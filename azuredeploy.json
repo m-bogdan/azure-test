@@ -21,14 +21,6 @@
 		"subnet2Name": {
 			"type" : "string",
 			"defaultValue" : "Test-Innsbruck"
-		},
-		"subnet1Prefix" : {
-			"type" : "string",
-			"defaultValue" : "10.0.84.0/27"
-		},
-		"subnet2Prefix" : {
-			"type" : "string",
-			"defaultValue" : "10.0.84.1/27"
 		}
 	},
 	"resources": [
