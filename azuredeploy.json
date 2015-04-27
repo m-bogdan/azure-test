@@ -38,7 +38,9 @@
 			"subnets": [
 			{
 				"name": "[parameters('subnet1Name')]",
-				"addressPrefix": "[parameters('subnet1Prefix')]"
+				"properties" : {
+					"addressPrefix": "[parameters('subnet1Prefix')]"
+				}
 			}
 			]
 		}
