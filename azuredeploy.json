@@ -1,63 +1,63 @@
-{
-	"$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/VNET.json",
-	"contentVersion": "1.0.0.0",
-	"parameters" : {
-		"location": {
-			"type": "String",
-			"defaultValue" : "westeurope"
-		},
-		"virtualNetworkName":{
-			"type" : "string",
-			"defaultValue":"Test-ARM-Templates"
-		},
-		"addressPrefix":{
-			"type" : "string",
-			"defaultValue" : "10.0.84.0/24"
-		},
-		"subnet1Name": {
-			"type" : "string",
-			"defaultValue" : "Test-Vienna"
-		},
-		"subnet2Name": {
-			"type" : "string",
-			"defaultValue" : "Test-Innsbruck"
-		},
-		"subnet1Prefix" : {
-			"type" : "string",
-			"defaultValue" : "10.0.84.0/27"
-		},
-		"subnet2Prefix" : {
-			"type" : "string",
-			"defaultValue" : "10.0.84.1/27"
-		}
-	},
-	"resources": [
-	{
-		"apiVersion": "2014-01-01",
-		"type": "Microsoft.ClassicNetwork/virtualNetworks",
-		"name": "[parameters('virtualNetworkName')]",
-		"location": "[parameters('location')]",
-		"properties": {
-			"addressSpace": {
-				"addressPrefixes": [
-					"[parameters('addressPrefix')]"
-				]
-			},
-			"subnets": [
-			{
-				"name": "[parameters('subnet1Name')]",
-				"properties" : {
-					"addressPrefix": "[parameters('subnet1Prefix')]"
-				}
-			},
-			{
-				"name": "[parameters('subnet2Name')]",
-				"properties" : {
-					"addressPrefix": "[parameters('subnet2Prefix')]"
-				}
-			}
-			]
-		}
-	}
-	]
-}
+{
+	"$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/VNET.json",
+	"contentVersion": "1.0.0.0",
+	"parameters" : {
+		"location": {
+			"type": "String",
+			"defaultValue" : "westeurope"
+		},
+		"virtualNetworkName":{
+			"type" : "string",
+			"defaultValue":"Test-ARM-Templates"
+		},
+		"addressPrefix":{
+			"type" : "string",
+			"defaultValue" : "10.0.84.0/24"
+		},
+		"subnet1Name": {
+			"type" : "string",
+			"defaultValue" : "Test-Vienna"
+		},
+		"subnet2Name": {
+			"type" : "string",
+			"defaultValue" : "Test-Innsbruck"
+		},
+		"subnet1Prefix" : {
+			"type" : "string",
+			"defaultValue" : "10.0.84.0/27"
+		},
+		"subnet2Prefix" : {
+			"type" : "string",
+			"defaultValue" : "10.0.84.1/27"
+		}
+	},
+	"resources": [
+	{
+		"apiVersion": "2014-01-01",
+		"type": "Microsoft.ClassicNetwork/virtualNetworks",
+		"name": "[parameters('virtualNetworkName')]",
+		"location": "[parameters('location')]",
+		"properties": {
+			"addressSpace": {
+				"addressPrefixes": [
+					"[parameters('addressPrefix')]"
+				]
+			},
+			"subnets": [
+			{
+				"name": "[parameters('subnet1Name')]",
+				"properties" : {
+					"addressPrefix": "[parameters('subnet1Prefix')]"
+				}
+			},
+			{
+				"name": "[parameters('subnet2Name')]",
+				"properties" : {
+					"addressPrefix": "[parameters('subnet2Prefix')]"
+				}
+			}
+			]
+		}
+	}
+	]
+}
