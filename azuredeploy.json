@@ -1,5 +1,5 @@
 {
-	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/VNET.json",
+	"$schema": "http://schema.management.azure.com/schemas/2014-06-01-preview/VNET.json",
 	"contentVersion": "1.0.0.0",
 	"parameters" : {
 		"location": {
@@ -33,7 +33,7 @@
 	},
 	"resources": [
 	{
-		"apiVersion": "2015-01-01",
+		"apiVersion": "2014-06-01",
 		"type": "Microsoft.ClassicNetwork/virtualNetworks",
 		"name": "[parameters('virtualNetworkName')]",
 		"location": "[parameters('location')]",
