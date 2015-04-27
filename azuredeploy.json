@@ -18,9 +18,9 @@
 			"type" : "string",
 			"defaultValue" : "Test-Vienna"
 		},
-		"subnet2Name": {
+		"subnet1Prefix" : {
 			"type" : "string",
-			"defaultValue" : "Test-Innsbruck"
+			"defaultValue" : "10.0.84.0/27"
 		}
 	},
 	"resources": [
