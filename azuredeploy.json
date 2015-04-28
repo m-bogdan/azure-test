@@ -2,7 +2,7 @@
 	"$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/VNET.json",
 	"contentVersion": "1.0.0.0",
 	"parameters" : {
-		"resourceGroup" : {
+		"resourceGroupName" : {
 			"type" : "String",
 			"dafaultValue" : "ial-ng61-112-p4" 
 		},
