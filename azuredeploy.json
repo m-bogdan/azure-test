@@ -3,8 +3,12 @@
 	"contentVersion": "1.0.0.0",
 	"parameters" : {
 		"location": {
-			"type": "String",
+			"type" : "String",
 			"defaultValue" : "West Europe"
+		},
+		"vmName" : {
+			"type" : "String",
+			"defaultValue" : "Bogdan-ARM-VM"
 		},
 		"virtualNetworkName":{
 			"type" : "string",
@@ -34,25 +38,48 @@
 	"resources": [
 	{
 		"apiVersion": "2014-06-01",
-		"type": "Microsoft.ClassicNetwork/virtualNetworks",
-		"name": "[parameters('virtualNetworkName')]",
-		"location": "[parameters('location')]",
-		"properties": {
+		"type" : "Microsoft.ClassicNetwork/virtualNetworks",
+		"name" : "[parameters('virtualNetworkName')]",
+		"location" : "[parameters('location')]",
+		"properties" : {
 			"addressSpace": {
 				"addressPrefixes": [
 					"[parameters('addressPrefix')]"
 				]
 			},
-			"subnets": [
+			"subnets" : [
 			{
-				"name": "[parameters('subnet1Name')]",
+				"name" : "[parameters('subnet1Name')]",
 					"addressPrefix": "[parameters('subnet1Prefix')]"
 			},
 			{
-				"name": "[parameters('subnet2Name')]",
+				"name" : "[parameters('subnet2Name')]",
 					"addressPrefix": "[parameters('subnet2Prefix')]"
 			}
 			]
+		}
+	},
+	{
+		"apiVersion" : "2014-06-01",
+		"type" : "Microsoft.ClassicCompute/virtualMachines",
+		"name" : "[parameters('vmName')]",
+		"location" : "[parameters('location')]",
+		"dependsOn" : [
+			"[concat('Microsoft.ClassicNetwork/virtualNetworks/', parameters('virtualNetworkName'))]"
+		],
+		"properties" : {
+			"osDisk" : {
+				"name" : "Bogdan-ARM-Disk",
+				"vhd" : {
+					"uri" : "[concat('http://cudademo.blob.core.windows.net/vhd/', 'GWAY-6.1.0-081.vhd')]"
+				},
+				"createOption" : "FromImage"
+			}
+		},
+		"networkProfile" : {
+			"virtualNetworks" : {
+				"id" : "[resourceId('Microsoft.ClassicNetwork/virtualNetworks', parameters('subnet2Name'))]"
+			}
 		}
 	}
 	]
