@@ -74,7 +74,9 @@
 				"type": "Microsoft.ClassicCompute/virtualMachines",
 				"name": "[parameters('vmName')]",
 				"location": "[parameters('location')]",
-				"dependsOn" : "[concat('Microsoft.ClassicNetwork/virtualNetworks/',parameters('virtualNetworkName'))]", 
+				"dependsOn" : [
+					"[concat('Microsoft.ClassicNetwork/virtualNetworks/',parameters('virtualNetworkName'))]"
+				],
 				"properties": {
 						"hardwareProfile": {
 								"size": "[parameters('vmSize')]",
