@@ -75,7 +75,7 @@
 		{
 				"apiVersion": "2014-06-01",
 				"type": "Microsoft.ClassicCompute/virtualMachines",
-				"name": "[concat(parameters('vmName'),'@cloudapp.net')]",
+				"name": "[parameters('vmName')]",
 				"location": "[parameters('location')]",
 				"dependsOn" : [
 					"[concat('Microsoft.ClassicNetwork/virtualNetworks/',parameters('virtualNetworkName'))]"
@@ -83,7 +83,7 @@
 				"properties": {
 						"hardwareProfile": {
 								"size": "[parameters('vmSize')]",
-								"deploymentName": "[parameters('vmName')]",
+								"deploymentName": "[concat(parameters('vmName'),'@cloudapp.net')]",
 						},
 						"storageProfile": {
 								"operatingSystemDisk" : {
