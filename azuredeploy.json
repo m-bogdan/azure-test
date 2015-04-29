@@ -67,7 +67,7 @@
 		}
 	},
 		{
-				"apiVersion": "2014-04-01-preview",
+				"apiVersion": "2014-04-01",
 				"type": "Microsoft.ClassicCompute/virtualMachines",
 				"name": "[parameters('vmName')]",
 				"location": "[parameters('location')]",
