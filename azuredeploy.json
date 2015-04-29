@@ -46,7 +46,7 @@
 		}
 	},
 	"variables" : {
-		"cloudServiceName" : "bogdan-arm-vm@cloudapp.net"
+		"cloudServiceName" : "bogdan-arm-vm"
 	},
 	"resources": [
 	{
