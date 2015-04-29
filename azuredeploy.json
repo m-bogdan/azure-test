@@ -68,12 +68,12 @@
 			"[concat('Microsoft.ClassicNetwork/virtualNetworks/', parameters('virtualNetworkName'))]"
 		],
 		"properties" : {
+			"osProfile" : {
+				"computername" : "[parameters('vmName')]",
+				"adminUsername" : "root",
+				"adminPassword" : "ngf1r3wall"
+			},
 			"storageProfiles" : {
-				"osProfile" : {
-					"computername" : "[parameters('vmName')]",
-					"adminUsername" : "root",
-					"adminPassword" : "ngf1r3wall"
-				},
 				"osDisk" : {
 					"name" : "Bogdan-ARM-Disk",
 					"vhd" : {
