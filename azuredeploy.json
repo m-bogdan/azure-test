@@ -75,12 +75,12 @@
 		{
 				"apiVersion": "2014-06-01",
 				"type": "Microsoft.ClassicCompute/virtualMachines",
-				"name": "[concat(variable('vmName'),'@cloudapp.net')]",
+				"name": "[concat(variables('vmName'),'@cloudapp.net')]",
 				"location": "[parameters('location')]",
 				"properties": {
 						"hardwareProfile": {
 								"size": "[parameters('vmSize')]",
-								"deploymentName": "[concat(variable('vmName'),'@cloudapp.net')]",
+								"deploymentName": "[concat(variables('vmName'),'@cloudapp.net')]",
 						},
 						"storageProfile": {
 								"operatingSystemDisk" : {
