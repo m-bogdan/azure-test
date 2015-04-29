@@ -45,6 +45,9 @@
 			}
 		}
 	},
+	"variables" : {
+		"cloudServiceName" : "bogdan-arm-vm@cloudapp.net"
+	},
 	"resources": [
 	{
 		"apiVersion": "2014-06-01",
