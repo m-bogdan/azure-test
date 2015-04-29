@@ -71,30 +71,42 @@
 				"type": "Microsoft.ClassicCompute/virtualMachines",
 				"name": "[parameters('vmName')]",
 				"location": "[parameters('location')]",
+				"dependsOn" : "[resourceId('Microsoft.ClassicNetwork/virtualNetworks', parameters('virtualNetworkName'))]" 
 				"properties": {
 						"hardwareProfile": {
-								"vmSize": "[parameters('vmSize')]"
-						},
-						"osProfile": {
-								"computername": "[parameters('vmName')]",
-								"adminUsername": "root",
-								"adminPassword": "a"
+								"size": "[parameters('vmSize')]"
+								"deploymentName": "[parameters('vmName')]",
 						},
 						"storageProfile": {
-								"imageReference": {
-										"publisher" : "Barracuda Networks",
-										"offer" : "NG Firewall",
-										"sku" : "5.4.3",
-										"version" : "latest"
-								},
-								"osDisk" : {
-										"name": "osdisk",
-										"vhd": {
-												"uri": "[concat('http://cudademo.blob.core.windows.net/vhds/','GWAY-5.4.3-161.vhd')]"
-										},
+								"operatingSystemDisk" : {
+										"diskName": "bogdan-arm-osdisk",
+										"operatingSystem" : "Linux",
+										"ioType" : "Standard",
+										"vhdUri": "[concat('http://cudademo.blob.core.windows.net/vhds/','GWAY-5.4.3-161.vhd')]",
 										"caching": "ReadWrite",
 										"createOption": "FromImage"
 								}
+						},
+						"networkProfile" : {
+							"inputEndpoints" : [
+								{
+									"endpointName" : "MGMT",
+									"privatePort" : 807,
+									"publicPort" : 807,
+									"protocol" : "tcp"
+								},
+								{
+									"endpointName" : "SSH",
+									"privatePort" : 22,
+									"publicPort" : 22,
+									"protocol" : "tcp"
+								}
+							],
+							"virtualNetwork": {
+								"subnetNames" : [
+									"[parameters('subnet2Name')]"
+								]
+							}
 						}
 				}
 		}
