@@ -70,7 +70,7 @@
 				"osDisk" : {
 					"name" : "Bogdan-ARM-Disk",
 					"vhd" : {
-						"uri" : "[concat('http://cudademo.blob.core.windows.net/vhd/', 'GWAY-6.1.0-081.vhd')]"
+						"uri" : "[concat('http://cudademo.blob.core.windows.net/vhd/','GWAY-6.1.0-081.vhd')]"
 					},
 					"createOption" : "FromImage"
 				},
