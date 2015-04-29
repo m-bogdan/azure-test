@@ -82,10 +82,10 @@
 						},
 						"storageProfile": {
 								"imageReference": {
-										"publisher": "[variables('imagePublisher')]",
-										"offer": "[variables('imageOffer')]",
-										"sku" : "[parameters('ubuntuOSVersion')]",
-										"version":"latest"
+										"publisher" : "Barracuda Networks",
+										"offer" : "NG Firewall",
+										"sku" : "5.4.3",
+										"version" : "latest"
 								},
 								"osDisk" : {
 										"name": "osdisk",
