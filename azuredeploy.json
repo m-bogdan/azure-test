@@ -36,7 +36,7 @@
 		},
 		"vmSize": {
 			"type": "string",
-			"defaultValue": "Standard_D1",
+			"defaultValue": "A1",
 				"metadata": {
 					"Description": "VM size"
 				}
