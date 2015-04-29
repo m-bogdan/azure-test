@@ -78,7 +78,7 @@
 		"location" : "[parameters('location')]",
 		"name" : "[variables('cloudServiceName')]",
 		"properties" : {
-			"hostName":"[concat(variables('cloudServiceName'),'.cloudapp.net')]"
+			"hostName":"[concat(variables('cloudServiceName'),'@cloudapp.net')]"
 		}
 	},
 		{
