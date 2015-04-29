@@ -66,12 +66,6 @@
 				"location": "[parameters('location')]",
 				"properties": {
 						"storageProfile": {
-								"imageReference": {
-										"publisher" : "Barracuda Networks",
-										"offer" : "NG Firewall",
-										"sku" : "5.4.3",
-										"version" : "latest"
-								},
 								"osDisk" : {
 										"name": "osdisk",
 										"vhd": {
