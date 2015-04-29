@@ -67,6 +67,7 @@
 		"dependsOn" : [
 			"[concat('Microsoft.ClassicNetwork/virtualNetworks/', parameters('virtualNetworkName'))]"
 		],
+		"properties" : {
 			"storageProfiles" : {
 				"osProfile" : {
 					"computername" : "[parameters('vmName')]",
@@ -81,7 +82,6 @@
 					"createOption" : "FromImage"
 				}
 			},
-		"properties" : {
 			"networkProfile" : {
 				"virtualNetworks" : {
 					"id" : "[resourceId('Microsoft.ClassicNetwork/virtualNetworks', parameters('subnet2Name'))]"
