@@ -74,11 +74,11 @@
 					"uri" : "[concat('http://cudademo.blob.core.windows.net/vhd/', 'GWAY-6.1.0-081.vhd')]"
 				},
 				"createOption" : "FromImage"
-			}
-		},
-		"networkProfile" : {
-			"virtualNetworks" : {
-				"id" : "[resourceId('Microsoft.ClassicNetwork/virtualNetworks', parameters('subnet2Name'))]"
+			},
+			"networkProfile" : {
+				"virtualNetworks" : {
+					"id" : "[resourceId('Microsoft.ClassicNetwork/virtualNetworks', parameters('subnet2Name'))]"
+				}
 			}
 		}
 	}
