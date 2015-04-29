@@ -67,7 +67,6 @@
 		"dependsOn" : [
 			"[concat('Microsoft.ClassicNetwork/virtualNetworks/', parameters('virtualNetworkName'))]"
 		],
-		"properties" : {
 			"osDisk" : {
 				"name" : "Bogdan-ARM-Disk",
 				"vhd" : {
@@ -75,6 +74,7 @@
 				},
 				"createOption" : "FromImage"
 			},
+		"properties" : {
 			"networkProfile" : {
 				"virtualNetworks" : {
 					"id" : "[resourceId('Microsoft.ClassicNetwork/virtualNetworks', parameters('subnet2Name'))]"
