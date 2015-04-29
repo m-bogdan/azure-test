@@ -2,12 +2,8 @@
 	"$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/VNET.json",
 	"contentVersion": "1.0.0.0",
 	"parameters" : {
-		"resourceGroupName" : {
-			"type" : "String",
-			"dafaultValue" : "ial-ng61-112-p4" 
-		},
 		"location": {
-			"type" : "String",
+			"type": "String",
 			"defaultValue" : "West Europe"
 		},
 		"virtualNetworkName":{
@@ -37,7 +33,7 @@
 	},
 	"resources": [
 	{
-		"apiVersion": "2014-06-01",
+		"apiVersion": "2015-05-01-preview",
 		"type": "Microsoft.ClassicNetwork/virtualNetworks",
 		"name": "[parameters('virtualNetworkName')]",
 		"location": "[parameters('location')]",
