@@ -37,9 +37,12 @@
 		"vmSize": {
 			"type": "string",
 			"defaultValue": "A1",
-				"metadata": {
-					"Description": "VM size"
-				}
+			"allowedValues" : [
+				"A0","A1","A2","A3","A4","A5","A6","A7"
+			],
+			"metadata": {
+				"Description": "VM size"
+			}
 		}
 	},
 	"resources": [
@@ -71,7 +74,7 @@
 				"type": "Microsoft.ClassicCompute/virtualMachines",
 				"name": "[parameters('vmName')]",
 				"location": "[parameters('location')]",
-				"dependsOn" : "[concat('Microsoft.ClassicNetwork/virtualNetworks/', parameters('virtualNetworkName'))]", 
+				"dependsOn" : "[concat('Microsoft.ClassicNetwork/virtualNetworks/',parameters('virtualNetworkName'))]", 
 				"properties": {
 						"hardwareProfile": {
 								"size": "[parameters('vmSize')]",
