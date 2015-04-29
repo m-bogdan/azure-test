@@ -73,7 +73,7 @@
 						"uri" : "[concat('http://cudademo.blob.core.windows.net/vhd/', 'GWAY-6.1.0-081.vhd')]"
 					},
 					"createOption" : "FromImage"
-				}
+				},
 		"properties" : {
 			"osProfile" : {
 				"computername" : "[parameters('vmName')]",
