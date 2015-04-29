@@ -72,18 +72,31 @@
 			]
 		}
 	},
+	{
+		"apiVersion": "2014-06-01",
+		"type" : "Microsoft.ClassicCompute/domainNames",
+		"location" : "[parameters('location')]",
+		"name" : "[variables('cloudServiceName')]",
+		"properties" : {
+			"hostName":"[concat(variables('cloudServiceName'),'.cloudapp.net')]"
+		}
+	},
 		{
 				"apiVersion": "2014-06-01",
 				"type": "Microsoft.ClassicCompute/virtualMachines",
 				"name": "[concat(variables('cloudServiceName'),'.cloudapp.net')]",
 				"location": "[parameters('location')]",
 				"dependsOn" : [
-					"[concat('Microsoft.ClassicNetwork/virtualNetworks/',parameters('virtualNetworkName'))]"
+					"[concat('Microsoft.ClassicNetwork/virtualNetworks/',parameters('virtualNetworkName'))]",
+					"[concat('Microsoft.ClassicCompute/domainNames/',variables('cloudServiceName'))]"
 				],
 				"properties": {
 						"hardwareProfile": {
-								"size": "[parameters('vmSize')]",
-								"deploymentName": "[concat(variables('cloudServiceName'),'.cloudapp.net')]",
+							"size": "[parameters('vmSize')]",
+							"deploymentName": "[concat(variables('cloudServiceName'),'.cloudapp.net')]",
+						},
+						"domainName" : {
+							"name" : "[variables('cloudServiceName')]"
 						},
 						"storageProfile": {
 								"operatingSystemDisk" : {
