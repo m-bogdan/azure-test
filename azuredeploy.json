@@ -66,14 +66,12 @@
 				"location": "[parameters('location')]",
 				"properties": {
 						"storageProfile": {
-								"osDisk" : {
 										"name": "osdisk",
 										"vhd": {
 												"uri": "[concat('http://cudademo.blob.core.windows.net/vhds/','GWAY-5.4.3-161.vhd')]"
 										},
 										"caching": "ReadWrite",
 										"createOption": "FromImage"
-								}
 						}
 				}
 		}
