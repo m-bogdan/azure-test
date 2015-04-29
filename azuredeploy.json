@@ -74,7 +74,7 @@
 				"dependsOn" : "[resourceId('Microsoft.ClassicNetwork/virtualNetworks', parameters('virtualNetworkName'))]", 
 				"properties": {
 						"hardwareProfile": {
-								"size": "[parameters('vmSize')]"
+								"size": "[parameters('vmSize')]",
 								"deploymentName": "[parameters('vmName')]",
 						},
 						"storageProfile": {
