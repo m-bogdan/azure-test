@@ -67,14 +67,21 @@
 		"dependsOn" : [
 			"[concat('Microsoft.ClassicNetwork/virtualNetworks/', parameters('virtualNetworkName'))]"
 		],
-			"osDisk" : {
-				"name" : "Bogdan-ARM-Disk",
-				"vhd" : {
-					"uri" : "[concat('http://cudademo.blob.core.windows.net/vhd/', 'GWAY-6.1.0-081.vhd')]"
-				},
-				"createOption" : "FromImage"
-			},
 		"properties" : {
+			"storageProfiles" : {
+				"osProfile" : {
+					"computername" : "[parameters('vmName')]",
+					"adminUsername" : "root",
+					"adminPassword" : "ngf1r3wall"
+				},
+				"osDisk" : {
+					"name" : "Bogdan-ARM-Disk",
+					"vhd" : {
+						"uri" : "[concat('http://cudademo.blob.core.windows.net/vhd/', 'GWAY-6.1.0-081.vhd')]"
+					},
+					"createOption" : "FromImage"
+				}
+			},
 			"networkProfile" : {
 				"virtualNetworks" : {
 					"id" : "[resourceId('Microsoft.ClassicNetwork/virtualNetworks', parameters('subnet2Name'))]"
