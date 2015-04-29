@@ -33,6 +33,13 @@
 		"subnet2Prefix" : {
 			"type" : "string",
 			"defaultValue" : "10.0.100.0/24"
+		},
+		"vmSize": {
+			"type": "string",
+			"defaultValue": "Standard_D1",
+				"metadata": {
+					"Description": "VM size"
+				}
 		}
 	},
 	"resources": [
@@ -60,10 +67,36 @@
 		}
 	},
 		{
-				"apiVersion": "2014-06-01",
+				"apiVersion": "2014-04-01-preview",
 				"type": "Microsoft.ClassicCompute/virtualMachines",
 				"name": "[parameters('vmName')]",
-				"location": "[parameters('location')]"
+				"location": "[parameters('location')]",
+				"properties": {
+						"hardwareProfile": {
+								"vmSize": "[parameters('vmSize')]"
+						},
+						"osProfile": {
+								"computername": "[parameters('vmName')]",
+								"adminUsername": "root",
+								"adminPassword": "a"
+						},
+						"storageProfile": {
+								"imageReference": {
+										"publisher" : "Barracuda Networks",
+										"offer" : "NG Firewall",
+										"sku" : "5.4.3",
+										"version" : "latest"
+								},
+								"osDisk" : {
+										"name": "osdisk",
+										"vhd": {
+												"uri": "[concat('http://cudademo.blob.core.windows.net/vhds/','GWAY-5.4.3-161.vhd')]"
+										},
+										"caching": "ReadWrite",
+										"createOption": "FromImage"
+								}
+						}
+				}
 		}
 	]
 }
