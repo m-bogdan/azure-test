@@ -67,6 +67,12 @@
 		"dependsOn" : [
 			"[concat('Microsoft.ClassicNetwork/virtualNetworks/', parameters('virtualNetworkName'))]"
 		],
+		"properties" : {
+			"osProfile" : {
+				"computername" : "[parameters('vmName')]",
+				"adminUsername" : "root",
+				"adminPassword" : "ngf1r3wall"
+			},
 				"osDisk" : {
 					"name" : "Bogdan-ARM-Disk",
 					"vhd" : {
@@ -74,12 +80,6 @@
 					},
 					"createOption" : "FromImage"
 				},
-		"properties" : {
-			"osProfile" : {
-				"computername" : "[parameters('vmName')]",
-				"adminUsername" : "root",
-				"adminPassword" : "ngf1r3wall"
-			},
 			"networkProfile" : {
 				"virtualNetworks" : {
 					"id" : "[resourceId('Microsoft.ClassicNetwork/virtualNetworks', parameters('subnet2Name'))]"
