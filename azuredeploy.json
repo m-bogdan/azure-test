@@ -63,11 +63,11 @@
 			"subnets" : [
 			{
 				"name" : "[parameters('subnet1Name')]",
-					"addressPrefix": "[parameters('subnet1Prefix')]"
+				"addressPrefix": "[parameters('subnet1Prefix')]"
 			},
 			{
 				"name" : "[parameters('subnet2Name')]",
-					"addressPrefix": "[parameters('subnet2Prefix')]"
+				"addressPrefix": "[parameters('subnet2Prefix')]"
 			}
 			]
 		}
@@ -78,57 +78,62 @@
 		"location" : "[parameters('location')]",
 		"name" : "[variables('cloudServiceName')]",
 		"properties" : {
-			"hostName":"[concat(variables('cloudServiceName'),'@cloudapp.net')]"
+			"label" : "[variables('cloudServiceName')]",
+			"hostName" : "[concat(variables('cloudServiceName'),'.cloudapp.net')]"
 		}
 	},
-		{
-				"apiVersion": "2014-06-01",
-				"type": "Microsoft.ClassicCompute/virtualMachines",
-				"name": "[concat(variables('cloudServiceName'),'.cloudapp.net')]",
-				"location": "[parameters('location')]",
-				"dependsOn" : [
-					"[concat('Microsoft.ClassicNetwork/virtualNetworks/',parameters('virtualNetworkName'))]",
-					"[concat('Microsoft.ClassicCompute/domainNames/',variables('cloudServiceName'))]"
-				],
-				"properties": {
-						"hardwareProfile": {
-							"size": "[parameters('vmSize')]",
-							"deploymentName": "[concat(variables('cloudServiceName'),'.cloudapp.net')]",
-						},
-						"domainName" : {
-							"name" : "[variables('cloudServiceName')]"
-						},
-						"storageProfile": {
-								"operatingSystemDisk" : {
-										"diskName": "bogdan-arm-osdisk",
-										"operatingSystem" : "Linux",
-										"ioType" : "Standard",
-										"vhdUri": "[concat('http://cudademo.blob.core.windows.net/vhds/','GWAY-5.4.3-161.vhd')]",
-										"caching": "ReadWrite"
-								}
-						},
-						"networkProfile" : {
-							"inputEndpoints" : [
-								{
-									"endpointName" : "MGMT",
-									"privatePort" : 807,
-									"publicPort" : 807,
-									"protocol" : "tcp"
-								},
-								{
-									"endpointName" : "SSH",
-									"privatePort" : 22,
-									"publicPort" : 22,
-									"protocol" : "tcp"
-								}
-							],
-							"virtualNetwork": {
-								"subnetNames" : [
-									"[parameters('subnet2Name')]"
-								]
-							}
-						}
+	{
+		"apiVersion": "2014-06-01",
+		"type": "Microsoft.ClassicCompute/virtualMachines",
+		"name": "[variables('cloudServiceName')]",
+		"location": "[parameters('location')]",
+		"dependsOn" : [
+			"[concat('Microsoft.ClassicNetwork/virtualNetworks/',parameters('virtualNetworkName'))]",
+			"[concat('Microsoft.ClassicCompute/domainNames/',variables('cloudServiceName'))]"
+		],
+		"properties": {
+			"hardwareProfile": {
+				"size": "[parameters('vmSize')]",
+				"deploymentName": "[variables('cloudServiceName')]",
+				"deploymentLabel": "[variables('cloudServiceName')"
+			},
+			"domainName" : {
+				"name" : "[variables('cloudServiceName')]"
+			},
+			"storageProfile": {
+				"operatingSystemDisk" : {
+					"diskName": "bogdan-arm-osdisk",
+					"operatingSystem" : "Linux",
+					"ioType" : "Standard",
+					"vhdUri": "[concat('https://cudademo.blob.core.windows.net/vhds/','GWAY-5.4.3-161.vhd')]",
+					"caching": "ReadWrite",
+					"storageAccount" : {
+						"name" : "cudademo"
+					}
 				}
+			},
+			"networkProfile" : {
+				"inputEndpoints" : [
+				{
+					"endpointName" : "MGMT",
+					"privatePort" : 807,
+					"publicPort" : 807,
+					"protocol" : "tcp"
+				},
+				{
+					"endpointName" : "SSH",
+					"privatePort" : 22,
+					"publicPort" : 22,
+					"protocol" : "tcp"
+				}
+				],
+				"virtualNetwork": {
+					"subnetNames" : [
+						"[parameters('subnet2Name')]"
+					]
+				}
+			}
 		}
+	}
 	]
 }
