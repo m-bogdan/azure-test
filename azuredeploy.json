@@ -33,13 +33,6 @@
 		"subnet2Prefix" : {
 			"type" : "string",
 			"defaultValue" : "10.0.100.0/24"
-		},
-		"vmSize": {
-			"type": "string",
-			"defaultValue": "Standard_D1",
-				"metadata": {
-					"Description": "VM size"
-				}
 		}
 	},
 	"resources": [
@@ -72,9 +65,6 @@
 				"name": "[parameters('vmName')]",
 				"location": "[parameters('location')]",
 				"properties": {
-						"hardwareProfile": {
-								"vmSize": "[parameters('vmSize')]"
-						},
 						"osProfile": {
 								"computername": "[parameters('vmName')]",
 								"adminUsername": "root",
