@@ -100,7 +100,7 @@
 			},
 			"domainName" : {
 				"name" : "[variables('cloudServiceName')]",
-				"tyoe" : "Microsoft.ClassicCompute/domainNames"
+				"type" : "Microsoft.ClassicCompute/domainNames"
 			},
 			"storageProfile": {
 				"operatingSystemDisk" : {
