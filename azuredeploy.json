@@ -38,7 +38,7 @@
 			"type": "string",
 			"defaultValue": "A1",
 			"allowedValues" : [
-				"A0","A1","A2","A3","A4","A5","A6","A7"
+				"Basic_A0","Basic_A1","Basic_A2","Basic_A3","Basic_A4","A5","A6","A7","A8","A9","A10","A11"
 			],
 			"metadata": {
 				"Description": "VM size"
