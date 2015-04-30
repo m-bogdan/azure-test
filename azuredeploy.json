@@ -99,6 +99,7 @@
 				"deploymentLabel": "[variables('cloudServiceName')"
 			},
 			"domainName" : {
+				"id" : "[resourceId('Microsoft.ClassicCompute/domainNames',variables('cloudServiceName'))]",
 				"name" : "[variables('cloudServiceName')]",
 				"type" : "Microsoft.ClassicCompute/domainNames"
 			},
@@ -110,6 +111,7 @@
 					"vhdUri": "[concat('https://cudademo.blob.core.windows.net/vhds/','GWAY-5.4.3-161.vhd')]",
 					"caching": "ReadWrite",
 					"storageAccount" : {
+						"id" : "[resourceId('Microsoft.ClassicStorage/storageAccounts','cudademo')]".
 						"name" : "cudademo",
 						"type" : "Microsoft.ClassicStorage/storageAccounts"
 					}
@@ -134,6 +136,7 @@
 					"subnetNames" : [
 						"[parameters('subnet2Name')]"
 					],
+					"id" : "[resourceId('Microsoft.ClassicNetwork/virtualNetworks',parameters('virtualNetworkName'))]",
 					"name" : "[parameters('virtualNetworkName')]",
 					"type" : "Microsoft.ClassicNetwork/virtualNetworks"
 				}
