@@ -91,9 +91,6 @@
 			"[concat('Microsoft.ClassicNetwork/virtualNetworks/',parameters('virtualNetworkName'))]",
 			"[concat('Microsoft.ClassicCompute/domainNames/',variables('cloudServiceName'))]"
 		],
-				"OSDisk" : {
-					"OS" : "Linux"
-				},
 		"properties": {
 			"hardwareProfile": {
 				"platformGuestAgent" : true,
@@ -110,6 +107,9 @@
 				"operatingSystemDisk" : {
 					"vhdUri": "[concat('https://cudademo.blob.core.windows.net/vhd/','GWAY-5.4.3-161.vhd')]"
 				}
+				"osDisk" : {
+					"os" : "Linux"
+				},
 			},
 			"networkProfile" : {
 				"inputEndpoints" : [
