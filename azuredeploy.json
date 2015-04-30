@@ -50,7 +50,7 @@
 	},
 	"resources": [
 	{
-		"apiVersion": "2015-01-01",
+		"apiVersion": "2014-06-01",
 		"type" : "Microsoft.ClassicCompute/domainNames",
 		"location" : "[parameters('location')]",
 		"name" : "[variables('cloudServiceName')]",
@@ -60,7 +60,7 @@
 		}
 	},
 	{
-		"apiVersion": "2015-01-01",
+		"apiVersion": "2014-06-01",
 		"type": "Microsoft.ClassicCompute/virtualMachines",
 		"name": "[variables('cloudServiceName')]",
 		"location": "[parameters('location')]",
@@ -82,7 +82,7 @@
 			"storageProfile": {
 				"operatingSystemDisk" : {
 					"diskName" : "GWAY-5.4.3-161",
-					"sourceMediaLink": "https://cudademo.blob.core.windows.net/vhd/GWAY-5.4.3-161.vhd",
+					"vhdUri": "https://cudademo.blob.core.windows.net/vhd/GWAY-5.4.3-161.vhd",
 					"storageAccount" : {
 						"id" : "/subscriptions/ee21fa5b-30b7-45d1-81c9-919085006474/resourceGroups/Default-Storage-WestEurope/providers/Microsoft.ClassicStorage/storageAccounts/cudademo",
 						"name" : "cudademo",
