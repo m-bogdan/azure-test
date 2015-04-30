@@ -81,7 +81,7 @@
 			},
 			"storageProfile": {
 				"operatingSystemDisk" : {
-					"diskName" : "BOGDAN-GWAY-5.4.3-161",
+					"diskName" : "GWAY-5.4.3-161",
 					"operatingSystem" : "Linux", 
 					"storageAccount" : {
 						"id" : "/subscriptions/ee21fa5b-30b7-45d1-81c9-919085006474/resourceGroups/Default-Storage-WestEurope/providers/Microsoft.ClassicStorage/storageAccounts/cudademo",
