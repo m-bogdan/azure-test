@@ -108,7 +108,7 @@
 					"diskName": "bogdan-arm-osdisk",
 					"operatingSystem" : "Linux",
 					"ioType" : "Standard",
-					"vhdUri": "[concat('https://cudademo.blob.core.windows.net/vhds/','GWAY-5.4.3-161.vhd')]",
+					"vhdUri": "[concat('https://cudademo.blob.core.windows.net/vhd/','GWAY-5.4.3-161.vhd')]",
 					"caching": "ReadWrite",
 					"storageAccount" : {
 						"id" : "[resourceId('Microsoft.ClassicStorage/storageAccounts','cudademo')]",
