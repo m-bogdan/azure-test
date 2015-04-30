@@ -41,13 +41,13 @@
 			"type" : "string",
 			"defaultValue" : "Bogdan-ARM-Subnet-Vienna"
 		},
-		"subnet2Name": {
-			"type" : "string",
-			"defaultValue" : "Bogdan-ARM-Subnet-Innsbruck"
-		},
 		"subnet1Prefix" : {
 			"type" : "string",
 			"defaultValue" : "10.0.1.0/24"
+		},
+		"subnet2Name": {
+			"type" : "string",
+			"defaultValue" : "Bogdan-ARM-Subnet-Innsbruck"
 		},
 		"subnet2Prefix" : {
 			"type" : "string",
