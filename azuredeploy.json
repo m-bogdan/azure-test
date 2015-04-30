@@ -80,7 +80,7 @@
 				"type" : "Microsoft.ClassicCompute/domainNames"
 			},
 			"storageProfile": {
-				"operatingSystemDisk" : {
+				"osDisk" : {
 					"diskName" : "GWAY-5.4.3-161",
 					"vhdUri": "https://cudademo.blob.core.windows.net/vhd/GWAY-5.4.3-161.vhd",
 					"storageAccount" : {
