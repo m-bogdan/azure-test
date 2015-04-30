@@ -6,9 +6,28 @@
 			"type" : "String",
 			"defaultValue" : "West Europe"
 		},
+		"cloudServiceName" :
+		{
+			"type" : "String",
+			"defaultValue" : "bogdan-arm-cloud-service"	
+		},
 		"vmName" : {
 			"type" : "String",
-			"defaultValue" : "Bogdan-ARM-VM"
+			"defaultValue" : "bogdan-arm-vm"
+		},
+		"vmSize": {
+			"type": "String",
+			"defaultValue": "Basic_A1",
+			"allowedValues" : [
+				"Basic_A0","Basic_A1","Basic_A2","Basic_A3","Basic_A4","A5","A6","A7","A8","A9","A10","A11"
+			],
+			"metadata": {
+				"Description": "VM size"
+			}
+		},
+		"vmDiskName" : {
+			"type" : "String",
+			"defaultValue" : "ial-ng61-112-r0-ial-ng61-112-r0-2015-04-28"
 		},
 		"virtualNetworkName":{
 			"type" : "string",
@@ -33,20 +52,7 @@
 		"subnet2Prefix" : {
 			"type" : "string",
 			"defaultValue" : "10.0.100.0/24"
-		},
-		"vmSize": {
-			"type": "string",
-			"defaultValue": "Basic_A1",
-			"allowedValues" : [
-				"Basic_A0","Basic_A1","Basic_A2","Basic_A3","Basic_A4","A5","A6","A7","A8","A9","A10","A11"
-			],
-			"metadata": {
-				"Description": "VM size"
-			}
 		}
-	},
-	"variables" : {
-		"cloudServiceName" : "bogdan-arm-vm"
 	},
 	"resources": [
 	{
@@ -76,36 +82,36 @@
 		"apiVersion": "2014-06-01",
 		"type" : "Microsoft.ClassicCompute/domainNames",
 		"location" : "[parameters('location')]",
-		"name" : "[variables('cloudServiceName')]",
+		"name" : "[parameters('cloudServiceName')]",
 		"properties" : {
-			"label" : "[variables('cloudServiceName')]",
-			"hostName" : "[concat(variables('cloudServiceName'),'.cloudapp.net')]"
+			"label" : "[parameters('cloudServiceName')]",
+			"hostName" : "[concat(parameters('cloudServiceName'),'.cloudapp.net')]"
 		}
 	},
 	{
 		"apiVersion": "2014-06-01",
 		"type": "Microsoft.ClassicCompute/virtualMachines",
-		"name": "[variables('cloudServiceName')]",
+		"name": "[parameters('vmName')]",
 		"location": "[parameters('location')]",
 		"dependsOn" : [
-			"[concat('Microsoft.ClassicCompute/domainNames/',variables('cloudServiceName'))]"
+			"[concat('Microsoft.ClassicCompute/domainNames/',parameters('cloudServiceName'))]"
 			"[concat('Microsoft.ClassicNetwork/virtualNetworks/',parameters('virtualNetworkName'))]"
 		],
 		"properties": {
 			"hardwareProfile": {
 				"platformGuestAgent" : true,
 				"size": "[parameters('vmSize')]",
-				"deploymentName": "[variables('cloudServiceName')]",
-				"deploymentLabel": "[variables('cloudServiceName')"
+				"deploymentName": "[parameters('vmName')]",
+				"deploymentLabel": "[parameters('vmName')"
 			},
 			"domainName" : {
-				"id" : "[resourceId('Microsoft.ClassicCompute/domainNames',variables('cloudServiceName'))]",
-				"name" : "[variables('cloudServiceName')]",
+				"id" : "[resourceId('Microsoft.ClassicCompute/domainNames',parameters('cloudServiceName'))]",
+				"name" : "[parameters('cloudServiceName')]",
 				"type" : "Microsoft.ClassicCompute/domainNames"
 			},
 			"storageProfile": {
 				"operatingSystemDisk" : {
-					"diskName" : "ial-ng61-112-r0-ial-ng61-112-r0-2015-04-28",
+					"diskName" : "[parameters('vmDiskName')]",
 					"operatingSystem" : "Linux", 
 					"storageAccount" : {
 						"id" : "/subscriptions/ee21fa5b-30b7-45d1-81c9-919085006474/resourceGroups/Default-Storage-WestEurope/providers/Microsoft.ClassicStorage/storageAccounts/cudademo",
