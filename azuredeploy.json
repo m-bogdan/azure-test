@@ -104,9 +104,13 @@
 				"type" : "Microsoft.ClassicCompute/domainNames"
 			},
 			"storageProfile": {
-				"OSVirtualHardDisk" : {
-					"DiskName" : "GWAY-5.4.3-161.vhd",
-					"SourceImageName" : "[concat('https://cudademo.blob.core.windows.net/vhd/','GWAY-5.4.3-161.vhd')]"
+				"operatingSystemDisk" : {
+					"vhdUri": "[concat('https://cudademo.blob.core.windows.net/vhd/','GWAY-5.4.3-161.vhd')]",
+					"storageAccount" : {
+						"id" : "/subscriptions/ee21fa5b-30b7-45d1-81c9-919085006474/resourceGroups/Default-Storage-WestEurope/providers/Microsoft.ClassicStorage/storageAccounts/cudademo",
+						"name" : "cudademo",
+						"type" : "Microsoft.ClassicStorage/storageAccounts"
+					}
 				}
 			},
 			"networkProfile" : {
