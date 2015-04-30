@@ -81,7 +81,7 @@
 			},
 			"storageProfile": {
 				"operatingSystemDisk" : {
-					"diskName" : "GWAY-5.4.3-161",
+					"diskName" : "BOGDAN-GWAY-5.4.3-161",
 					"operatingSystem" : "Linux", 
 					"vhdUri": "https://cudademo.blob.core.windows.net/vhd/GWAY-5.4.3-161.vhd",
 					"storageAccount" : {
