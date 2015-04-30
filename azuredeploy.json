@@ -51,6 +51,16 @@
 	"resources": [
 	{
 		"apiVersion": "2014-06-01",
+		"type" : "Microsoft.ClassicCompute/domainNames",
+		"location" : "[parameters('location')]",
+		"name" : "[variables('cloudServiceName')]",
+		"properties" : {
+			"label" : "[variables('cloudServiceName')]",
+			"hostName" : "[concat(variables('cloudServiceName'),'.cloudapp.net')]"
+		}
+	},
+	{
+		"apiVersion": "2014-06-01",
 		"type" : "Microsoft.ClassicNetwork/virtualNetworks",
 		"name" : "[parameters('virtualNetworkName')]",
 		"location" : "[parameters('location')]",
@@ -74,16 +84,6 @@
 	},
 	{
 		"apiVersion": "2014-06-01",
-		"type" : "Microsoft.ClassicCompute/domainNames",
-		"location" : "[parameters('location')]",
-		"name" : "[variables('cloudServiceName')]",
-		"properties" : {
-			"label" : "[variables('cloudServiceName')]",
-			"hostName" : "[concat(variables('cloudServiceName'),'.cloudapp.net')]"
-		}
-	},
-	{
-		"apiVersion": "2014-06-01",
 		"type": "Microsoft.ClassicCompute/virtualMachines",
 		"name": "[variables('cloudServiceName')]",
 		"location": "[parameters('location')]",
@@ -93,12 +93,14 @@
 		],
 		"properties": {
 			"hardwareProfile": {
+				"platformGuestAgent" : true,
 				"size": "[parameters('vmSize')]",
 				"deploymentName": "[variables('cloudServiceName')]",
 				"deploymentLabel": "[variables('cloudServiceName')"
 			},
 			"domainName" : {
-				"name" : "[variables('cloudServiceName')]"
+				"name" : "[variables('cloudServiceName')]",
+				"tyoe" : "Microsoft.ClassicCompute/domainNames"
 			},
 			"storageProfile": {
 				"operatingSystemDisk" : {
@@ -108,7 +110,8 @@
 					"vhdUri": "[concat('https://cudademo.blob.core.windows.net/vhds/','GWAY-5.4.3-161.vhd')]",
 					"caching": "ReadWrite",
 					"storageAccount" : {
-						"name" : "cudademo"
+						"name" : "cudademo",
+						"type" : "Microsoft.ClassicStorage/storageAccounts"
 					}
 				}
 			},
@@ -130,7 +133,9 @@
 				"virtualNetwork": {
 					"subnetNames" : [
 						"[parameters('subnet2Name')]"
-					]
+					],
+					"name" : "[parameters('virtualNetworkName')]",
+					"type" : "Microsoft.ClassicNetwork/virtualNetworks"
 				}
 			}
 		}
