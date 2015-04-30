@@ -50,8 +50,8 @@
 	},
 	"resources": [
 	{
-		"apiVersion": "2014-06-01",
-		"type" : "Microsoft.ClassicCompute/domainNames",
+		"apiVersion": "2015-01-01",
+		"type" : "Microsoft.Compute/domainNames",
 		"location" : "[parameters('location')]",
 		"name" : "[variables('cloudServiceName')]",
 		"properties" : {
@@ -80,7 +80,7 @@
 				"type" : "Microsoft.ClassicCompute/domainNames"
 			},
 			"storageProfile": {
-				"dataDisk" : {
+				"operatingSystemDisk" : {
 					"diskName" : "GWAY-5.4.3-161",
 					"sourceMediaLink": "https://cudademo.blob.core.windows.net/vhd/GWAY-5.4.3-161.vhd",
 					"storageAccount" : {
