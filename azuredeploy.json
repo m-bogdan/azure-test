@@ -94,7 +94,7 @@
 		"name": "[parameters('vmName')]",
 		"location": "[parameters('location')]",
 		"dependsOn" : [
-			"[concat('Microsoft.ClassicCompute/domainNames/',parameters('cloudServiceName'))]"
+			"[concat('Microsoft.ClassicCompute/domainNames/',parameters('cloudServiceName'))]",
 			"[concat('Microsoft.ClassicNetwork/virtualNetworks/',parameters('virtualNetworkName'))]"
 		],
 		"properties": {
