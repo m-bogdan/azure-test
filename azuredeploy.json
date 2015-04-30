@@ -111,7 +111,7 @@
 					"vhdUri": "[concat('https://cudademo.blob.core.windows.net/vhds/','GWAY-5.4.3-161.vhd')]",
 					"caching": "ReadWrite",
 					"storageAccount" : {
-						"id" : "[resourceId('Microsoft.ClassicStorage/storageAccounts','cudademo')]".
+						"id" : "[resourceId('Microsoft.ClassicStorage/storageAccounts','cudademo')]",
 						"name" : "cudademo",
 						"type" : "Microsoft.ClassicStorage/storageAccounts"
 					}
