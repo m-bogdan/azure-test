@@ -36,7 +36,7 @@
 		},
 		"vmSize": {
 			"type": "string",
-			"defaultValue": "A1",
+			"defaultValue": "Basic_A1",
 			"allowedValues" : [
 				"Basic_A0","Basic_A1","Basic_A2","Basic_A3","Basic_A4","A5","A6","A7","A8","A9","A10","A11"
 			],
