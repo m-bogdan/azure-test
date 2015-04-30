@@ -105,10 +105,7 @@
 			},
 			"storageProfile": {
 				"operatingSystemDisk" : {
-					"operatingSystem" : "Linux",
-					"ioType" : "Standard",
 					"vhdUri": "[concat('https://cudademo.blob.core.windows.net/vhd/','GWAY-5.4.3-161.vhd')]",
-					"caching": "ReadWrite"
 				}
 			},
 			"networkProfile" : {
