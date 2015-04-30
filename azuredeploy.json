@@ -106,9 +106,6 @@
 			"storageProfile": {
 				"operatingSystemDisk" : {
 					"vhdUri": "[concat('https://cudademo.blob.core.windows.net/vhd/','GWAY-5.4.3-161.vhd')]"
-				},
-				"OSDisk" : {
-					"OS" : "Linux"
 				}
 			},
 			"networkProfile" : {
