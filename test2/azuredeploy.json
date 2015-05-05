@@ -6,6 +6,14 @@
 			"type" : "String",
 			"defaultValue" : "West Europe"
 		},
+		"virtualNetworkName":{
+			"type" : "string",
+			"defaultValue":"Bogdan-ARM-VirtualNetwork"
+		},
+		"addressPrefix":{
+			"type" : "string",
+			"defaultValue" : "10.0.0.0/16"
+		},
 	},
 	"resources": [
 	{
@@ -19,16 +27,6 @@
 					"[parameters('addressPrefix')]"
 				]
 			},
-			"subnets" : [
-			{
-				"name" : "[parameters('subnet1Name')]",
-				"addressPrefix": "[parameters('subnet1Prefix')]"
-			},
-			{
-				"name" : "[parameters('subnet2Name')]",
-				"addressPrefix": "[parameters('subnet2Prefix')]"
-			}
-			]
 		}
 	}
 	]
