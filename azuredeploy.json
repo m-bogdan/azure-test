@@ -1,5 +1,5 @@
 {
-	"$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/VNET.json",
+	"$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deployment.json",
 	"contentVersion": "1.0.0.0",
 	"parameters" : {
 		"location": {
@@ -56,8 +56,8 @@
 	},
 	"resources": [
 	{
-		"apiVersion": "2015-05-01-preview",
-		"type" : "Microsoft.Network/virtualNetworks",
+		"apiVersion": "2014-06-01",
+		"type" : "Microsoft.ClassicNetwork/virtualNetworks",
 		"name" : "[parameters('virtualNetworkName')]",
 		"location" : "[parameters('location')]",
 		"properties" : {
@@ -76,6 +76,74 @@
 				"addressPrefix": "[parameters('subnet2Prefix')]"
 			}
 			]
+		}
+	},
+	{
+		"apiVersion": "2014-06-01",
+		"type" : "Microsoft.ClassicCompute/domainNames",
+		"location" : "[parameters('location')]",
+		"name" : "[parameters('cloudServiceName')]",
+		"properties" : {
+			"label" : "[parameters('cloudServiceName')]",
+			"hostName" : "[concat(parameters('cloudServiceName'),'.cloudapp.net')]"
+		}
+	},
+	{
+		"apiVersion": "2014-06-01",
+		"type": "Microsoft.ClassicCompute/virtualMachines",
+		"name": "[parameters('vmName')]",
+		"location": "[parameters('location')]",
+		"dependsOn" : [
+			"[concat('Microsoft.ClassicCompute/domainNames/',parameters('cloudServiceName'))]",
+			"[concat('Microsoft.ClassicNetwork/virtualNetworks/',parameters('virtualNetworkName'))]"
+		],
+		"properties": {
+			"hardwareProfile": {
+				"platformGuestAgent" : true,
+				"size": "[parameters('vmSize')]",
+				"deploymentName": "[parameters('vmName')]",
+				"deploymentLabel": "[parameters('vmName')"
+			},
+			"domainName" : {
+				"id" : "[resourceId('Microsoft.ClassicCompute/domainNames',parameters('cloudServiceName'))]",
+				"name" : "[parameters('cloudServiceName')]",
+				"type" : "Microsoft.ClassicCompute/domainNames"
+			},
+			"storageProfile": {
+				"operatingSystemDisk" : {
+					"diskName" : "[parameters('vmDiskName')]",
+					"operatingSystem" : "Linux", 
+					"storageAccount" : {
+						"id" : "/subscriptions/ee21fa5b-30b7-45d1-81c9-919085006474/resourceGroups/Default-Storage-WestEurope/providers/Microsoft.ClassicStorage/storageAccounts/cudademo",
+						"name" : "cudademo",
+						"type" : "Microsoft.ClassicStorage/storageAccounts"
+					}
+				}
+			},
+			"networkProfile" : {
+				"inputEndpoints" : [
+				{
+					"endpointName" : "MGMT",
+					"privatePort" : 807,
+					"publicPort" : 807,
+					"protocol" : "tcp"
+				},
+				{
+					"endpointName" : "SSH",
+					"privatePort" : 22,
+					"publicPort" : 22,
+					"protocol" : "tcp"
+				}
+				],
+				"virtualNetwork": {
+					"subnetNames" : [
+						"[parameters('subnet2Name')]"
+					],
+					"id" : "[resourceId('Microsoft.ClassicNetwork/virtualNetworks',parameters('virtualNetworkName'))]",
+					"name" : "[parameters('virtualNetworkName')]",
+					"type" : "Microsoft.ClassicNetwork/virtualNetworks"
+				}
+			}
 		}
 	}
 	]
