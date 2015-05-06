@@ -1,7 +1,7 @@
 {
-	"itemDisplayName": "Create a Virtual Network with two Subnets/my test",
-	"description": "This template allows you to create a Virtual Network with two subnets./my test",
-	"summary": "Create a Virtual Network with two Subnets/my test",
-	"githubUsername": "m_bogdan",
+	"itemDisplayName": "Create a Virtual Network from image gallery",
+	"description": "Create a Virtual Network from image gallery",
+	"summary": "Create a Virtual Network from image gallery",
+	"githubUsername": "m-bogdan",
 	"dateUpdated": "2015-04-23"
 }
