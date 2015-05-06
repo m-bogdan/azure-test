@@ -58,7 +58,7 @@
     "variables": {
         "location": "West Europe",
         "publicIPAddressName": "demo-ngfwMgmtIP",
-        "vmName": "demo-cloud-access-vm",
+        "vmName": "GWAY-5.4.3-100",
         "virtualNetworkName": "demo-cloud-network",
         "nicName": "demo-em1",
         "addressPrefix":"10.0.0.0/16",
@@ -68,7 +68,7 @@
         "vnetID":"[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
         "subnet1Ref" : "[concat(variables('vnetID'),'/subnets/',variables('subnet1Name'))]",
         "userImageName" : "[concat('http://',parameters('userImageStorageAccountName'),'.blob.core.windows.net/',parameters('userImageStorageContainerName'),'/',parameters('userImageVhdName'))]",
-        "osDiskVhdName" : "[concat('http://',parameters('userImageStorageAccountName'),'.blob.core.windows.net/',parameters('userImageStorageContainerName'),'/',variables('vmName'),'osDisk.vhd')]"
+        "osDiskVhdName" : "[concat('http://',parameters('userImageStorageAccountName'),'.blob.core.windows.net/',parameters('userImageStorageContainerName'),'/',variables('vmName'),'.vhd')]"
     },
     "resources": [
         {
