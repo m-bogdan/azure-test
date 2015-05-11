@@ -223,10 +223,7 @@
 				},
 				"storageProfile": {
 					"imageReference": {
-						"publisher": "[parameters('imagePublisher')]",
-						"offer": "[parameters('imageOffer')]",
-						"sku" : "[parameters('imageSKU')]",
-						"version":"latest"
+						"name" : "810d5f35ce8748c686feabed1344911c__BarracudaNGFirewall-6.0.1-033"
 					},
 					"osDisk" : {
 						"name": "osdisk",
