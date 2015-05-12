@@ -197,10 +197,6 @@
             "hardwareProfile": {
                 "vmSize": "[parameters('vmSize')]"
             },
-			"osProfile" : {
-				"adminUsername" : "demo",
-				"adminPassword" : "a12345!"
-			},
             "storageProfile": {
                 "osDisk": {
                     "name": "[concat(parameters('vmName'),'-osDisk')]",
