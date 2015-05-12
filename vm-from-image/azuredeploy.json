@@ -4,7 +4,7 @@
     "parameters": {
         "location": {
             "type": "string",
-			"defaultValue" : "West Europe"
+			"defaultValue" : "West Europe",
             "metadata": {
                 "description": "Location to create the VM in"
             }
