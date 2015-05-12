@@ -171,7 +171,9 @@
                             ],
                             "loadBalancerInboundNatRules": [
                                 {
-                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers','loadBalancer'),'/inboundNatRules/ssh')]",
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers','loadBalancer'),'/inboundNatRules/ssh')]"
+                                },
+                                {
                                     "id": "[concat(resourceId('Microsoft.Network/loadBalancers','loadBalancer'),'/inboundNatRules/mgmt')]"
                                 }
                             ]
