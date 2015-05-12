@@ -224,7 +224,9 @@
 				"storageProfile": {
 					"osDisk" : {
 						"name": "osdisk",
-						"image" : "810d5f35ce8748c686feabed1344911c__BarracudaNGFirewall-6.0.1-033",
+						"image" : {
+							"name" : "810d5f35ce8748c686feabed1344911c__BarracudaNGFirewall-6.0.1-033"
+						},
 						"vhd": {
 							"uri": "[concat('http://',parameters('newStorageAccountName'),'.blob.core.windows.net/vhds/','ng60-osdisk.vhd')]"
 						},
