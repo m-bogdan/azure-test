@@ -17,6 +17,7 @@
         },
         "osType": {
             "type": "string",
+			"defaultValue" : "linux",
             "allowedValues": [
                 "windows",
                 "linux"
@@ -27,13 +28,14 @@
         },
         "vmSize": {
             "type": "string",
-            "defaultValue": "Basic_A1",
+            "defaultValue": "Standard_A0",
             "metadata": {
                 "description": "Size of the VM"
             }
         },
 		"dnsNameForPublicIP" : {
 			"type" : "string",
+			"defaultValue" : "gw-d-ngfw",
 			"metadata" : {
 				"description" : "DNS Name"
 			}
@@ -57,7 +59,8 @@
         "vmStorageAccountContainerName": "vhdbm",
         "virtualNetworkName": "MyVNET",
         "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
-        "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]"
+        "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]",
+		"loadBalancer" : "trafficBalancer"
     },
     "resources": [
        {
@@ -95,7 +98,7 @@
         },
         {
             "apiVersion": "2015-05-01-preview",
-            "name": "loadBalancer",
+            "name": "[variables('loadBalancer')]",
             "type": "Microsoft.Network/loadBalancers",
             "location": "[parameters('location')]",
             "dependsOn": [
@@ -122,7 +125,7 @@
                         "name": "ssh",
                         "properties": {
                             "frontendIPConfiguration": {
-                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers','loadBalancer'),'/frontendIPConfigurations/LBFE')]"
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer')),'/frontendIPConfigurations/LBFE')]"
                             },
                             "protocol": "tcp",
                             "frontendPort": 22,
@@ -134,7 +137,7 @@
                         "name": "mgmt",
                         "properties": {
                             "frontendIPConfiguration": {
-                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers','loadBalancer'),'/frontendIPConfigurations/LBFE')]"
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer')),'/frontendIPConfigurations/LBFE')]"
                             },
                             "protocol": "tcp",
                             "frontendPort": 807,
@@ -152,7 +155,7 @@
             "location": "[parameters('location')]",
             "dependsOn": [
                 "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]",
-                "[concat('Microsoft.Network/loadBalancers/', 'loadBalancer')]",
+                "[concat('Microsoft.Network/loadBalancers/', variables('loadBalancer')]",
                 "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
             ],
             "properties": {
@@ -166,15 +169,15 @@
                             },
                             "loadBalancerBackendAddressPools": [
                                 {
-                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers','loadBalancer'),'/backendAddressPools/LBBAP')]"
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer')),'/backendAddressPools/LBBAP')]"
                                 }
                             ],
                             "loadBalancerInboundNatRules": [
                                 {
-                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers','loadBalancer'),'/inboundNatRules/ssh')]"
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer')),'/inboundNatRules/ssh')]"
                                 },
                                 {
-                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers','loadBalancer'),'/inboundNatRules/mgmt')]"
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer')),'/inboundNatRules/mgmt')]"
                                 }
                             ]
                         }
