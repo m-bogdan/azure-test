@@ -232,7 +232,7 @@
 						"name": "osdisk",
 						"osType" : "Linux",
 						"image" : {
-							"uri": "[concat('http://','cudademo','.blob.core.windows.net/vhds/','NGFirewall-6.1.0-112-PAYG.vhd')]"
+							"uri": "[concat('http://','ngrelease','.blob.core.windows.net/vhd/','q1bpamqu.43i201504281210070865.vhd')]"
 						},
 						"vhd": {
 							"uri": "[concat('http://',parameters('newStorageAccountName'),'.blob.core.windows.net/vhds/','ng60-osdisk.vhd')]"
