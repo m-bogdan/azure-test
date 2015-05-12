@@ -224,6 +224,7 @@
 				"storageProfile": {
 					"osDisk" : {
 						"name": "osdisk",
+						"osType" : "Linux",
 						"image" : {
 							"uri" : "[concat('/',subscription().subscriptionId,'/services/images/','810d5f35ce8748c686feabed1344911c__BarracudaNGFirewall-6.0.1-033.vhd')]"
 						},
