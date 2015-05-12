@@ -52,7 +52,7 @@
         "nicName": "myVMNic",
         "addressPrefix": "10.0.0.0/16",
         "subnetName": "Subnet",
-        "subnetPrefix": "10.0.0.0/24",
+        "subnetPrefix": "10.0.5.0/24",
         "storageAccountType": "Standard_LRS",
         "publicIPAddressName": "myPublicIP",
         "publicIPAddressType": "Dynamic",
@@ -109,9 +109,11 @@
                     {
                         "name": "LBFE",
                         "properties": {
-                            "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"
-                            }
+							"privateIPAddress" : "10.0.5.5",
+							"privateIPAllocationMethod" : "Static",
+							"subnet" : {
+								"id" : "[variables('subnetRef')]"
+							}
                         }
                     }
                 ],
@@ -120,32 +122,38 @@
                         "name": "LBBAP"
                     }
                 ],
-                "inboundNatRules": [
-                    {
-                        "name": "ssh",
-                        "properties": {
+				"loadBalancingRules" : [
+					{
+						"name" : "sshrule",
+						"properties" : {
                             "frontendIPConfiguration": {
                                 "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer')),'/frontendIPConfigurations/LBFE')]"
                             },
+							"backendAddressPool" : {
+								"id" : "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer')),'/backendAddressPools/LBBAP')]"
+							},
                             "protocol": "tcp",
                             "frontendPort": 22,
                             "backendPort": 22,
                             "enableFloatingIP": false
-                        }
-                    },
-                    {
-                        "name": "mgmt",
-                        "properties": {
+						}
+					},
+					{
+						"name" : "mgmtrule",
+						"properties" : {
                             "frontendIPConfiguration": {
                                 "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer')),'/frontendIPConfigurations/LBFE')]"
                             },
+							"backendAddressPool" : {
+								"id" : "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer')),'/backendAddressPools/LBBAP')]"
+							},
                             "protocol": "tcp",
                             "frontendPort": 807,
                             "backendPort": 807,
                             "enableFloatingIP": false
-                        }
-                    }
-                ]
+						}
+					}
+				]
             }
         },
         {
@@ -171,14 +179,6 @@
                                 {
                                     "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer')),'/backendAddressPools/LBBAP')]"
                                 }
-                            ],
-                            "loadBalancerInboundNatRules": [
-                                {
-                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer')),'/inboundNatRules/ssh')]"
-                                },
-                                {
-                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer')),'/inboundNatRules/mgmt')]"
-                                }
                             ]
                         }
                     }
@@ -197,6 +197,10 @@
             "hardwareProfile": {
                 "vmSize": "[parameters('vmSize')]"
             },
+			"osProfile" : {
+				"adminUsername" : "demo",
+				"adminPassword" : "a12345!"
+			},
             "storageProfile": {
                 "osDisk": {
                     "name": "[concat(parameters('vmName'),'-osDisk')]",
