@@ -56,7 +56,7 @@
 		},
 		"vmName": {
 			"type": "string",
-			"default": "ngfw-xx",
+			"defaultValue": "ngfw-xx",
 			"metadata": {
 				"description": "Name of the VM"
 			}
