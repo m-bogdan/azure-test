@@ -17,6 +17,7 @@
 		},
 		"newStorageAccountName": {
 			"type": "string",
+			"defaultValue" : "gw-ng60",
 			"metadata": {
 				"description": "Name of the storage account"
 			}
@@ -30,6 +31,7 @@
 		},
 		"publicIPName": {
 			"type": "string",
+			"defaultValue" : "gw-acpf",
 			"metadata": {
 				"description": "Name of Public IP"
 			}
@@ -54,6 +56,7 @@
 		},
 		"vmName": {
 			"type": "string",
+			"default": "ngfw-xx"
 			"metadata": {
 				"description": "Name of the VM"
 			}
@@ -88,18 +91,21 @@
 		},
 		"adminUsername": {
 			"type": "string",
+			"defaultValue" : "admin",
 			"metadata": {
 				"description": "Admin Username"
 			}
 		},
 		"adminPassword": {
 			"type": "securestring",
+			"defaultValue" : "a12345!",
 			"metadata": {
 				"description": "Admin Password"
 			}
 		},
 		"virtualNetworkName": {
 			"type": "string",
+			"defaultValue" : "nw-share-01",
 			"metadata": {
 				"description": "Name of Virtual Network"
 			}
@@ -127,7 +133,7 @@
 		},
 		"nicName": {
 			"type": "string",
-			"defaultValue" : "eth0",
+			"defaultValue" : "vceth0",
 			"metadata": {
 				"description": "Network Interface name"
 			}
