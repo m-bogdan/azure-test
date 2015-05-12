@@ -32,6 +32,12 @@
                 "description": "Size of the VM"
             }
         },
+		"dnsNameForPublicIP" : {
+			"type" : "string",
+			"metadata" : {
+				"description" : "DNS Name"
+			}
+		},
         "vmName": {
             "type": "string",
 			"defaultValue" : "gw-ngfw60",
