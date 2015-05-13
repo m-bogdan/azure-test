@@ -184,36 +184,36 @@
 						}
 					]
 				}
-    	}
+    	},
 		{
-        "apiVersion": "2015-05-01-preview",
-        "type": "Microsoft.Compute/virtualMachines",
-        "name": "[parameters('vmName')]",
-        "location": "[parameters('location')]",
-		"dependsOn" : [
-			"[concat('Microsoft.Network/loadBalancers/', variables('loadBalancer'))]"
-		],
-        "properties": {
-            "hardwareProfile": {
-                "vmSize": "[parameters('vmSize')]"
-            },
-            "storageProfile": {
-                "osDisk": {
-                    "name": "[concat(parameters('vmName'),'-osDisk')]",
-                    "osType": "[parameters('osType')]",
-                    "caching": "ReadWrite",
-                    "vhd": {
-                        "uri": "[parameters('osDiskVhdUri')]"
-                    },
-                    "createOption": "Attach"
-                }
-            },
-            "networkProfile": {
-                "networkInterfaces": [{
-                    "id": "[resourceId('Microsoft.Network/networkInterfaces',variables('nicName'))]"
-                }]
-            }
-        }
-    }
+				"apiVersion": "2015-05-01-preview",
+				"type": "Microsoft.Compute/virtualMachines",
+				"name": "[parameters('vmName')]",
+				"location": "[parameters('location')]",
+				"dependsOn" : [
+					"[concat('Microsoft.Network/loadBalancers/', variables('loadBalancer'))]"
+				],
+				"properties": {
+					"hardwareProfile": {
+						"vmSize": "[parameters('vmSize')]"
+					},
+					"storageProfile": {
+						"osDisk": {
+							"name": "[concat(parameters('vmName'),'-osDisk')]",
+							"osType": "[parameters('osType')]",
+							"caching": "ReadWrite",
+							"vhd": {
+								"uri": "[parameters('osDiskVhdUri')]"
+							},
+							"createOption": "Attach"
+						}
+					},
+					"networkProfile": {
+						"networkInterfaces": [{
+							"id": "[resourceId('Microsoft.Network/networkInterfaces',variables('nicName'))]"
+						}]
+					}
+				}
+			}
 	]
 }
