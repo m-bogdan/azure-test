@@ -69,7 +69,7 @@
 			"name": "bmstorage8",
 			"location": "[parameters('location')]",
 			"properties": {
-				"accountType": "Standard_A1"
+				"accountType": "Standard_LRS"
 			}
 		},
        {
