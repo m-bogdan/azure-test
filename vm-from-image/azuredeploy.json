@@ -1,38 +1,38 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "location": {
-            "type": "string",
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"location": {
+			"type": "string",
 			"defaultValue" : "West Europe",
-            "metadata": {
-                "description": "Location to create the VM in"
-            }
-        },
-        "osDiskVhdUri": {
-            "type": "string",
-            "metadata": {
-                "description": "Uri of the existing VHD"
-            }
-        },
-        "osType": {
-            "type": "string",
+			"metadata": {
+				"description": "Location to create the VM in"
+			}
+		},
+		"osDiskVhdUri": {
+			"type": "string",
+			"metadata": {
+				"description": "Uri of the existing VHD"
+			}
+		},
+		"osType": {
+			"type": "string",
 			"defaultValue" : "linux",
-            "allowedValues": [
-                "windows",
-                "linux"
-            ],
-            "metadata": {
-                "description": "Type of OS on the existing vhd"
-            }
-        },
-        "vmSize": {
-            "type": "string",
-            "defaultValue": "Standard_A0",
-            "metadata": {
-                "description": "Size of the VM"
-            }
-        },
+			"allowedValues": [
+				"windows",
+				"linux"
+			],
+			"metadata": {
+				"description": "Type of OS on the existing vhd"
+			}
+		},
+		"vmSize": {
+			"type": "string",
+			"defaultValue": "Standard_A0",
+			"metadata": {
+				"description": "Size of the VM"
+			}
+		},
 		"dnsNameForPublicIP" : {
 			"type" : "string",
 			"defaultValue" : "gw-d-ngfw",
@@ -40,88 +40,88 @@
 				"description" : "DNS Name"
 			}
 		},
-        "vmName": {
-            "type": "string",
+		"vmName": {
+			"type": "string",
 			"defaultValue" : "gw-ngfw60",
-            "metadata": {
-                "description": "Name of the VM"
-            }
-        }
-    },
-    "variables" :{
-        "nicName": "myVMNic",
-        "addressPrefix": "10.0.0.0/16",
-        "subnetName": "Subnet",
-        "subnetPrefix": "10.0.0.0/24",
-        "storageAccountType": "Standard_LRS",
-        "publicIPAddressName": "myPublicIP",
-        "publicIPAddressType": "Dynamic",
+			"metadata": {
+				"description": "Name of the VM"
+			}
+		}
+	},
+	"variables" :{
+		"nicName": "myVMNic",
+		"addressPrefix": "10.0.0.0/16",
+		"subnetName": "Subnet",
+		"subnetPrefix": "10.0.0.0/24",
+		"storageAccountType": "Standard_LRS",
+		"publicIPAddressName": "myPublicIP",
+		"publicIPAddressType": "Dynamic",
 		"publicIPAddressID": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]",
-        "vmStorageAccountContainerName": "vhdbm",
-        "virtualNetworkName": "MyVNET",
-        "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
-        "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]",
+		"vmStorageAccountContainerName": "vhdbm",
+		"virtualNetworkName": "MyVNET",
+		"vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
+		"subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]",
 		"loadBalancer" : "trafficBalancer",
 		"lbID": "[resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer'))]",
 		"frontEndIPConfigID": "[concat(variables('lbID'),'/frontendIPConfigurations/loadBalancerFrontEnd')]"
-    },
-    "resources": [
-       {
-            "apiVersion": "2015-05-01-preview",
-            "type": "Microsoft.Network/publicIPAddresses",
-            "name": "[variables('publicIPAddressName')]",
-            "location": "[parameters('location')]",
-            "properties": {
-                "publicIPAllocationMethod": "[variables('publicIPAddressType')]",
-                "dnsSettings": {
-                    "domainNameLabel": "[parameters('dnsNameForPublicIP')]"
-                }
-            }
-        },
-        {
-            "apiVersion": "2015-05-01-preview",
-            "type": "Microsoft.Network/virtualNetworks",
-            "name": "[variables('virtualNetworkName')]",
-            "location": "[parameters('location')]",
-            "properties": {
-                "addressSpace": {
-                    "addressPrefixes": [
-                        "[variables('addressPrefix')]"
-                    ]
-                },
-                "subnets": [
-                    {
-                        "name": "[variables('subnetName')]",
-                        "properties": {
-                            "addressPrefix": "[variables('subnetPrefix')]"
-                        }
-                    }
-                ]
-            }
-        },
-        {
-            "apiVersion": "2015-05-01-preview",
-            "type": "Microsoft.Network/networkInterfaces",
-            "name": "[variables('nicName')]",
-            "location": "[parameters('location')]",
-            "dependsOn": [
-                "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
-            ],
-            "properties": {
-                "ipConfigurations": [
-                    {
-                        "name": "ipconfig1",
-                        "properties": {
-                            "privateIPAllocationMethod": "Dynamic",
-                            "subnet": {
-                                "id": "[variables('subnetRef')]"
-                            },
-                            "loadBalancerBackendAddressPools": [
-                                {
-                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer')),'/backendAddressPools/LBBAP')]"
-                                }
-                            ],
-                            "loadBalancerInboundNatRules" : [
+	},
+	"resources": [
+	   {
+			"apiVersion": "2015-05-01-preview",
+			"type": "Microsoft.Network/publicIPAddresses",
+			"name": "[variables('publicIPAddressName')]",
+			"location": "[parameters('location')]",
+			"properties": {
+				"publicIPAllocationMethod": "[variables('publicIPAddressType')]",
+				"dnsSettings": {
+					"domainNameLabel": "[parameters('dnsNameForPublicIP')]"
+				}
+			}
+		},
+		{
+			"apiVersion": "2015-05-01-preview",
+			"type": "Microsoft.Network/virtualNetworks",
+			"name": "[variables('virtualNetworkName')]",
+			"location": "[parameters('location')]",
+			"properties": {
+				"addressSpace": {
+					"addressPrefixes": [
+						"[variables('addressPrefix')]"
+					]
+				},
+				"subnets": [
+					{
+						"name": "[variables('subnetName')]",
+						"properties": {
+							"addressPrefix": "[variables('subnetPrefix')]"
+						}
+					}
+				]
+			}
+		},
+		{
+			"apiVersion": "2015-05-01-preview",
+			"type": "Microsoft.Network/networkInterfaces",
+			"name": "[variables('nicName')]",
+			"location": "[parameters('location')]",
+			"dependsOn": [
+				"[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
+			],
+			"properties": {
+				"ipConfigurations": [
+					{
+						"name": "ipconfig1",
+						"properties": {
+							"privateIPAllocationMethod": "Dynamic",
+							"subnet": {
+								"id": "[variables('subnetRef')]"
+							},
+							"loadBalancerBackendAddressPools": [
+								{
+									"id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer')),'/backendAddressPools/LBBAP')]"
+								}
+							],
+							"loadBalancerInboundNatRules" : [
 								{
 									"id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer')),'/inboundNatRule/ssh')]"
 								},
@@ -129,91 +129,91 @@
 									"id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer')),'/inboundNatRule/mgmt')]"
 								}
 							]
-                        }
-                    }
-                ]
-            }
-        },
-		{
-				"apiVersion": "2015-05-01-preview",
-				"name": "[variables('loadBalancer')]",
-				"type": "Microsoft.Network/loadBalancers",
-				"location": "[parameters('location')]",
-				"dependsOn": [
-					"[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]",
-					"[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]"
-				],
-				"properties": {
-					"frontendIPConfigurations": [{
-						"name": "loadBalancerFrontEnd",
-						"properties": {
-							"publicIPAddress": {
-								"id": "[variables('publicIPAddressID')]"
-							}
 						}
-					}],
-					"backendAddressPools": [{
-							"name": "loadBalancerBackEnd"
-						}
-
-					],
-					"inboundNatRules": [
-						{
-								"name": "ssh",
-								"properties": {
-									"frontendIPConfiguration": {
-										"id": "[variables('frontEndIPConfigID')]"
-									},
-									"protocol": "tcp",
-									"frontendPort": 22,
-									"backendPort": 22,
-									"enableFloatingIP": false
-								}
-						},
-						{
-								"name": "mgmt",
-								"properties": {
-									"frontendIPConfiguration": {
-										"id": "[variables('frontEndIPConfigID')]"
-									},
-									"protocol": "tcp",
-									"frontendPort": 807,
-									"backendPort": 807,
-									"enableFloatingIP": false
-								}
-						}
-					]
-				}
-    	},
-		{
-				"apiVersion": "2015-05-01-preview",
-				"type": "Microsoft.Compute/virtualMachines",
-				"name": "[parameters('vmName')]",
-				"location": "[parameters('location')]",
-				"dependsOn" : [
-					"[concat('Microsoft.Network/loadBalancers/', variables('loadBalancer'))]"
-				],
-				"properties": {
-					"hardwareProfile": {
-						"vmSize": "[parameters('vmSize')]"
-					},
-					"storageProfile": {
-						"osDisk": {
-							"name": "[concat(parameters('vmName'),'-osDisk')]",
-							"osType": "[parameters('osType')]",
-							"caching": "ReadWrite",
-							"vhd": {
-								"uri": "[parameters('osDiskVhdUri')]"
-							},
-							"createOption": "Attach"
-						}
-					},
-					"networkProfile": {
-						"networkInterfaces": [{
-							"id": "[resourceId('Microsoft.Network/networkInterfaces',variables('nicName'))]"
-						}]
 					}
+				]
+			}
+		},
+		{
+			"apiVersion": "2015-05-01-preview",
+			"name": "[variables('loadBalancer')]",
+			"type": "Microsoft.Network/loadBalancers",
+			"location": "[parameters('location')]",
+			"dependsOn": [
+				"[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]",
+				"[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]"
+			],
+			"properties": {
+				"frontendIPConfigurations": [{
+					"name": "loadBalancerFrontEnd",
+					"properties": {
+						"publicIPAddress": {
+							"id": "[variables('publicIPAddressID')]"
+						}
+					}
+				}],
+				"backendAddressPools": [{
+						"name": "loadBalancerBackEnd"
+					}
+
+				],
+				"inboundNatRules": [
+					{
+						"name": "ssh",
+						"properties": {
+							"frontendIPConfiguration": {
+								"id": "[variables('frontEndIPConfigID')]"
+							},
+							"protocol": "tcp",
+							"frontendPort": 22,
+							"backendPort": 22,
+							"enableFloatingIP": false
+						}
+					},
+					{
+						"name": "mgmt",
+						"properties": {
+							"frontendIPConfiguration": {
+								"id": "[variables('frontEndIPConfigID')]"
+							},
+							"protocol": "tcp",
+							"frontendPort": 807,
+							"backendPort": 807,
+							"enableFloatingIP": false
+						}
+				}
+				]
+			}
+		},
+		{
+			"apiVersion": "2015-05-01-preview",
+			"type": "Microsoft.Compute/virtualMachines",
+			"name": "[parameters('vmName')]",
+			"location": "[parameters('location')]",
+			"dependsOn" : [
+				"[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
+			],
+			"properties": {
+				"hardwareProfile": {
+					"vmSize": "[parameters('vmSize')]"
+				},
+				"storageProfile": {
+					"osDisk": {
+						"name": "[concat(parameters('vmName'),'-osDisk')]",
+						"osType": "[parameters('osType')]",
+						"caching": "ReadWrite",
+						"vhd": {
+							"uri": "[parameters('osDiskVhdUri')]"
+						},
+						"createOption": "Attach"
+					}
+				},
+				"networkProfile": {
+					"networkInterfaces": [{
+						"id": "[resourceId('Microsoft.Network/networkInterfaces',variables('nicName'))]"
+					}]
 				}
 			}
+		}
 	]
 }
