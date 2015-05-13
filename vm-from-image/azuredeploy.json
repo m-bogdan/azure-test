@@ -182,7 +182,6 @@
 		},
 		"storageProfile": {
 			"osDisk": {
-				"name": "[concat(parameters('vmName'),'-osDisk')]",
 				"osType": "linux",
 				"caching": "ReadWrite",
 				"vhd": {
