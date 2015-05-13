@@ -52,15 +52,18 @@
         "nicName": "myVMNic",
         "addressPrefix": "10.0.0.0/16",
         "subnetName": "Subnet",
-        "subnetPrefix": "10.0.5.0/24",
+        "subnetPrefix": "10.0.0.0/24",
         "storageAccountType": "Standard_LRS",
         "publicIPAddressName": "myPublicIP",
         "publicIPAddressType": "Dynamic",
+		"publicIPAddressID": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]",
         "vmStorageAccountContainerName": "vhdbm",
         "virtualNetworkName": "MyVNET",
         "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
         "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]",
-		"loadBalancer" : "trafficBalancer"
+		"loadBalancer" : "trafficBalancer",
+		"lbID": "[resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer'))]",
+		"frontEndIPConfigID": "[concat(variables('lbID'),'/frontendIPConfigurations/loadBalancerFrontEnd')]"
     },
     "resources": [
        {
@@ -98,72 +101,10 @@
         },
         {
             "apiVersion": "2015-05-01-preview",
-            "name": "[variables('loadBalancer')]",
-            "type": "Microsoft.Network/loadBalancers",
-            "location": "[parameters('location')]",
-            "dependsOn": [
-                "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]",
-            ],
-            "properties": {
-                "frontendIPConfigurations": [
-                    {
-                        "name": "LBFE",
-                        "properties": {
-							"privateIPAddress" : "10.0.5.5",
-							"privateIPAllocationMethod" : "Static",
-							"subnet" : {
-								"id" : "[variables('subnetRef')]"
-							}
-                        }
-                    }
-                ],
-                "backendAddressPools": [
-                    {
-                        "name": "LBBAP"
-                    }
-                ],
-				"loadBalancingRules" : [
-					{
-						"name" : "sshrule",
-						"properties" : {
-                            "frontendIPConfiguration": {
-                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer')),'/frontendIPConfigurations/LBFE')]"
-                            },
-							"backendAddressPool" : {
-								"id" : "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer')),'/backendAddressPools/LBBAP')]"
-							},
-                            "protocol": "tcp",
-                            "frontendPort": 22,
-                            "backendPort": 22,
-                            "enableFloatingIP": false
-						}
-					},
-					{
-						"name" : "mgmtrule",
-						"properties" : {
-                            "frontendIPConfiguration": {
-                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer')),'/frontendIPConfigurations/LBFE')]"
-                            },
-							"backendAddressPool" : {
-								"id" : "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer')),'/backendAddressPools/LBBAP')]"
-							},
-                            "protocol": "tcp",
-                            "frontendPort": 807,
-                            "backendPort": 807,
-                            "enableFloatingIP": false
-						}
-					}
-				]
-            }
-        },
-        {
-            "apiVersion": "2015-05-01-preview",
             "type": "Microsoft.Network/networkInterfaces",
             "name": "[variables('nicName')]",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]",
-                "[concat('Microsoft.Network/loadBalancers/', variables('loadBalancer'))]",
                 "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
             ],
             "properties": {
@@ -179,19 +120,78 @@
                                 {
                                     "id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer')),'/backendAddressPools/LBBAP')]"
                                 }
-                            ]
+                            ],
+                            "loadBalancerInboundNatRules" : [
+								{
+									"id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer')),'/inboundNatRule/ssh')]"
+								},
+								{
+									"id": "[concat(resourceId('Microsoft.Network/loadBalancers',variables('loadBalancer')),'/inboundNatRule/mgmt')]"
+								}
+							]
                         }
                     }
                 ]
             }
         },
 		{
+				"apiVersion": "2015-05-01-preview",
+				"name": "[variables('loadBalancer')]",
+				"type": "Microsoft.Network/loadBalancers",
+				"location": "[parameters('location')]",
+				"dependsOn": [
+					"[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]",
+					"[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]"
+				],
+				"properties": {
+					"frontendIPConfigurations": [{
+						"name": "loadBalancerFrontEnd",
+						"properties": {
+							"publicIPAddress": {
+								"id": "[variables('publicIPAddressID')]"
+							}
+						}
+					}],
+					"backendAddressPools": [{
+							"name": "loadBalancerBackEnd"
+						}
+
+					],
+					"inboundNatRules": [
+						{
+								"name": "ssh",
+								"properties": {
+									"frontendIPConfiguration": {
+										"id": "[variables('frontEndIPConfigID')]"
+									},
+									"protocol": "tcp",
+									"frontendPort": 22,
+									"backendPort": 22,
+									"enableFloatingIP": false
+								}
+						},
+						{
+								"name": "mgmt",
+								"properties": {
+									"frontendIPConfiguration": {
+										"id": "[variables('frontEndIPConfigID')]"
+									},
+									"protocol": "tcp",
+									"frontendPort": 807,
+									"backendPort": 807,
+									"enableFloatingIP": false
+								}
+						}
+					]
+				}
+    	}
+		{
         "apiVersion": "2015-05-01-preview",
         "type": "Microsoft.Compute/virtualMachines",
         "name": "[parameters('vmName')]",
         "location": "[parameters('location')]",
 		"dependsOn" : [
-			"[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
+			"[concat('Microsoft.Network/loadBalancers/', variables('loadBalancer'))]"
 		],
         "properties": {
             "hardwareProfile": {
