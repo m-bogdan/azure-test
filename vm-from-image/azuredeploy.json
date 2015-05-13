@@ -73,7 +73,8 @@
 		"lbID": "[resourceId('Microsoft.Network/loadBalancers',parameters('loadBalancerName'))]",
 		"nicId": "[resourceId('Microsoft.Network/networkInterfaces',variables('nicName'))]",
 		"frontEndIPConfigID": "[concat(variables('lbID'),'/frontendIPConfigurations/loadBalancerFrontEnd')]",
-		"backEndIPConfigID": "[concat(variables('nicId'),'/ipConfigurations/ipconfig1')]"
+		"backEndIPConfigID": "[concat(variables('nicId'),'/ipConfigurations/ipconfig1')]",
+		"vmSize" : "Standard_A0"
 	},
 	"resources": [
 	{
@@ -177,7 +178,7 @@
 	],
 	"properties": {
 		"hardwareProfile": {
-			"vmSize": "[parameters('vmSize')]"
+			"vmSize": "[variables('vmSize')]"
 		},
 		"storageProfile": {
 			"osDisk": {
