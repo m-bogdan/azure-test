@@ -170,8 +170,8 @@
                                     "id": "[variables('frontEndIPConfigID')]"
                                 },
                             "protocol": "tcp",
-                            "frontendPort": 22,
-                            "backendPort": 22,
+                            "frontendPort": 80,
+                            "backendPort": 80,
                             "enableFloatingIP": false
                         }
                     }
@@ -187,8 +187,8 @@
                                 "id": "[variables('lbPoolID')]"
                             },
                             "protocol": "tcp",
-                            "frontendPort": 22,
-                            "backendPort": 22,
+                            "frontendPort": 80,
+                            "backendPort": 80,
                             "enableFloatingIP": false,
                             "idleTimeoutInMinutes": 5,
                             "probe": {
@@ -202,7 +202,7 @@
                         "name": "tcpProbe",
                         "properties": {
                             "protocol": "tcp",
-                            "port": 22,
+                            "port": 80,
                             "intervalInSeconds": "5",
                             "numberOfProbes": "2"
                         }
