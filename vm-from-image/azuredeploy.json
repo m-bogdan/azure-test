@@ -63,6 +63,15 @@
 		"loadBalancer" : "trafficBalancer"
     },
     "resources": [
+		{
+			"apiVersion": "2015-05-01-preview",
+			"type": "Microsoft.Network/storageAccounts",
+			"name": "bmstorage8",
+			"location": "[parameters('location')]",
+			"properties": {
+				"accountType": "Standard_A1"
+			}
+		},
        {
             "apiVersion": "2015-05-01-preview",
             "type": "Microsoft.Network/publicIPAddresses",
