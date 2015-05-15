@@ -201,6 +201,11 @@
                 "hardwareProfile": {
                     "vmSize": "[parameters('vmSize')]"
                 },
+                "osProfile" : {
+					"computername" : "CloudGardian",
+					"adminUsername" : "demo",
+					"adminPassword" : "a12345!"
+				},
                 "storageProfile": {
                   "osDisk" : {
                       "name": "osdisk",
