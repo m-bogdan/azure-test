@@ -57,7 +57,19 @@
             "metadata": {
                 "description": "This is the size of your VM"
             }
-        }
+        },
+        "adminUsername": {
+            "type": "string",
+            "metadata": {
+              "description": "Admin username"
+            }
+        },
+        "adminPassword": {
+            "type": "securestring",
+            "metadata": {
+              "description": "Admin password"
+            }
+        },
     },
     "variables": {
 		"userImageStorageAccountName" : "bmstoragex",
@@ -70,8 +82,6 @@
         "subnet1Ref" : "[concat(variables('vnetID'),'/subnets/',parameters('subnet1Name'))]",
         "userImageName" : "[concat('http://',variables('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',variables('userImageVhdName'))]",
         "osDiskVhdName" : "[concat('http://',variables('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',parameters('vmName'),'osDisk.vhd')]",
-		"adminUsername" : "bogdan",
-		"adminPassword" : "Bogdan7",
 		"osType" : "linux"
     },
     "resources": [
@@ -148,8 +158,8 @@
             },
             "osProfile": {
                 "computername": "[parameters('vmName')]",
-                "adminUsername": "[variables('adminUsername')]",
-                "adminPassword": "[variables('adminPassword')]"
+                "adminUsername": "[parameters('adminUsername')]",
+                "adminPassword": "[parameters('adminPassword')]"
             },
             "storageProfile": {
                 "osDisk" : {
