@@ -95,14 +95,14 @@
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
-            "[variables('addressPrefix')]"
+            "[parameters('addressPrefix')]"
           ]
         },
         "subnets": [
           {
             "name": "[parameters('subnet1Name')]",
             "properties" : {
-                "addressPrefix": "[variables('subnet1Prefix')]"
+                "addressPrefix": "[parameters('subnet1Prefix')]"
             }
           }
         ]
