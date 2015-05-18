@@ -60,6 +60,7 @@
         },
         "adminUsername": {
             "type": "string",
+			"defaultValue" : "root",
             "metadata": {
               "description": "Admin username"
             }
@@ -69,7 +70,7 @@
             "metadata": {
               "description": "Admin password"
             }
-        },
+        }
     },
     "variables": {
 		"userImageStorageAccountName" : "bmstoragex",
@@ -159,7 +160,8 @@
             "osProfile": {
                 "computername": "[parameters('vmName')]",
                 "adminUsername": "[parameters('adminUsername')]",
-                "adminPassword": "[parameters('adminPassword')]"
+                "adminPassword": "[parameters('adminPassword')]",
+				"customData" : "[base64('This is a test for ARM Template Custom Data.')]"
             },
             "storageProfile": {
                 "osDisk" : {
