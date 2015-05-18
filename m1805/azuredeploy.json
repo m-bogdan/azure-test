@@ -53,7 +53,7 @@
 		},
         "vmSize": {
             "type": "string",
-			"default" : "Standard_A0",
+			"defaultValue" : "Standard_A0",
             "metadata": {
                 "description": "This is the size of your VM"
             }
