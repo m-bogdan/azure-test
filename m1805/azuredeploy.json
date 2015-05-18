@@ -168,7 +168,7 @@
 		"name": "[variables('lbName')]",
 		"location": "[parameters('location')]",
 		"dependsOn": [
-			"[concat('Microsoft.Network/publicIPAddresses/', parameters('publicIPAddressName'))]"
+			"[concat('Microsoft.Network/publicIPAddresses/', ,variables('publicIPAddressName'))]"
 		],
 		"properties" : {
 			"frontendIPConfigurations": [{
