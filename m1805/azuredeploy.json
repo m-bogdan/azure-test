@@ -2,73 +2,77 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters" : {
-        "userImageStorageAccountName": {
-            "type": "string",
-            "metadata": {
-                "description": "This is the name of the your storage account"
-            }
-        },
-        "userImageStorageContainerName" : {
-            "type" : "string",
-            "metadata": {
-                "description": "This is the name of the container in your storage account"
-            }
-        },
-        "userImageVhdName" : {
-            "type" : "string",
-            "metadata": {
-                "description": "This is the name of the your customized VHD"
-            }
-        },
+		"vmName": {
+			"type": "string",
+			"defaultValue": "ngfw-543-182",
+			"metadata": {
+				"description": "Name of the VM"
+			}
+		},
         "dnsNameForPublicIP" : {
             "type" : "string",
             "metadata": {
                 "description": "Unique DNS Name for the Public IP used to access the Virtual Machine."
             }
         },
-        "adminUserName": {
-            "type": "string",
-            "metadata": {
-                "description": "UserName for the Virtual Machine"
-            }
-        },
-        "adminPassword": {
-            "type": "securestring",
-            "metadata": {
-                "description": "Password for the Virtual Machine"
-            }
-        },
-        "osType" : {
-            "type" : "string",
-            "allowedValues" : [
-                "windows",
-                "linux"
-            ],
-            "metadata": {
-                "description": "This is the OS that your VM will be running"
-            }
-        },
+		"virtualNetworkName": {
+			"type": "string",
+			"defaultValue" : "VNet",
+			"metadata": {
+				"description": "Name of Virtual Network"
+			}
+		},
+		"addressPrefix": {
+			"type": "string",
+			"defaultValue": "10.0.0.0/16",
+			"metadata": {
+				"description": "VNET address prefix in CIDR format"
+			}
+		},
+		"subnet1Name": {
+			"type": "string",
+			"defaultValue": "Subnet-1",
+			"metadata": {
+				"description": "Subnet 1 Name"
+			}
+		},
+		"subnet1Prefix": {
+			"type": "string",
+			"defaultValue": "10.0.0.0/24",
+			"metadata": {
+				"description": "Subnet 1 address prefix in CIDR format"
+			}
+		},
+		"location": {
+			"type": "string",
+			"allowedValues": ["East US", "West US", "West Europe", "East Asia", "Southeast Asia"],
+			"metadata" : {
+				"description" : "Location to deploy"
+			}
+
+		},
         "vmSize": {
             "type": "string",
+			"default" : "Standard_A0",
             "metadata": {
                 "description": "This is the size of your VM"
             }
         }
     },
     "variables": {
-        "location": "West US",
+		"userImageStorageAccountName" : "bmstoragex",
+		"userImageStorageContainerName" : "bm-vhd",
+		"userImageVhdName" : "GWAY-5.4.3-182.vhd",
         "publicIPAddressName": "myPublicIP",
-        "vmName": "myVM",
-        "virtualNetworkName": "myVNET",
         "nicName": "myVMNic",
-        "addressPrefix":"10.0.0.0/16",
-        "subnet1Name": "Subnet-1",
-        "subnet1Prefix" : "10.0.0.0/24",
         "publicIPAddressType" : "Dynamic",
-        "vnetID":"[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
-        "subnet1Ref" : "[concat(variables('vnetID'),'/subnets/',variables('subnet1Name'))]",
-        "userImageName" : "[concat('http://',parameters('userImageStorageAccountName'),'.blob.core.windows.net/',parameters('userImageStorageContainerName'),'/',parameters('userImageVhdName'))]",
-        "osDiskVhdName" : "[concat('http://',parameters('userImageStorageAccountName'),'.blob.core.windows.net/',parameters('userImageStorageContainerName'),'/',variables('vmName'),'osDisk.vhd')]"
+        "vnetID":"[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]",
+        "subnet1Ref" : "[concat(variables('vnetID'),'/subnets/',parameters('subnet1Name'))]",
+        "userImageName" : "[concat('http://',variables('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',variables('userImageVhdName'))]",
+        "osDiskVhdName" : "[concat('http://',variables('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',parameters('vmName'),'osDisk.vhd')]",
+		"adminUsername" : "demo",
+		"adminPassword" : "a12345!",
+		"osType" : "linux"
     },
     "resources": [
     {
@@ -86,7 +90,7 @@
     {
       "apiVersion": "2015-05-01-preview",
       "type": "Microsoft.Network/virtualNetworks",
-      "name": "[variables('virtualNetworkName')]",
+      "name": "[parameters('virtualNetworkName')]",
       "location": "[variables('location')]",
       "properties": {
         "addressSpace": {
@@ -96,7 +100,7 @@
         },
         "subnets": [
           {
-            "name": "[variables('subnet1Name')]",
+            "name": "[parameters('subnet1Name')]",
             "properties" : {
                 "addressPrefix": "[variables('subnet1Prefix')]"
             }
@@ -111,14 +115,14 @@
         "location": "[variables('location')]",
         "dependsOn": [
             "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]",
-            "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
+            "[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]"
         ],
         "properties": {
             "ipConfigurations": [
             {
                 "name": "ipconfig1",
                 "properties": {
-                    "privateIPAllocationMethod": "Dynamic",
+                    "privateIPAllocationMethod": "Static",
                     "publicIPAddress": {
                         "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"
                     },
@@ -133,7 +137,7 @@
     {
         "apiVersion": "2015-05-01-preview",
         "type": "Microsoft.Compute/virtualMachines",
-        "name": "[variables('vmName')]",
+        "name": "[parameters('vmName')]",
         "location": "[variables('location')]",
         "dependsOn": [
             "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
@@ -143,14 +147,14 @@
                 "vmSize": "[parameters('vmSize')]"
             },
             "osProfile": {
-                "computername": "[variables('vmName')]",
-                "adminUsername": "[parameters('adminUsername')]",
-                "adminPassword": "[parameters('adminPassword')]"
+                "computername": "[parameters('vmName')]",
+                "adminUsername": "[variables('adminUsername')]",
+                "adminPassword": "[variables('adminPassword')]"
             },
             "storageProfile": {
                 "osDisk" : {
-                    "name" : "[concat(variables('vmName'),'-osDisk')]",
-                    "osType" : "[parameters('osType')]",
+                    "name" : "[concat(parameters('vmName'),'-osDisk')]",
+                    "osType" : "[variables('osType')]",
                     "caching" : "ReadWrite",
                     "image" : {
                         "uri" : "[variables('userImageName')]"
@@ -161,6 +165,20 @@
                 }
             },
             "networkProfile": {
+				"inputEndpoints" : [
+				{
+					"endpointName" : "ssh",
+					"publicPort" : 22,
+					"privatePort" : 22,
+					"protocol" : "tcp"
+				},
+				{
+					"endpointName" : "mgmt",
+					"publicPort" : 807,
+					"privatePort" : 807,
+					"protocol" : "tcp"
+				}
+				],
                 "networkInterfaces" : [
                 {
                     "id": "[resourceId('Microsoft.Network/networkInterfaces',variables('nicName'))]"
