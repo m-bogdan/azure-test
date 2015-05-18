@@ -70,8 +70,8 @@
         "subnet1Ref" : "[concat(variables('vnetID'),'/subnets/',parameters('subnet1Name'))]",
         "userImageName" : "[concat('http://',variables('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',variables('userImageVhdName'))]",
         "osDiskVhdName" : "[concat('http://',variables('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',parameters('vmName'),'osDisk.vhd')]",
-		"adminUsername" : "root",
-		"adminPassword" : "a12345!",
+		"adminUsername" : "admin",
+		"adminPassword" : "ngf1r3wall",
 		"osType" : "linux"
     },
     "resources": [
