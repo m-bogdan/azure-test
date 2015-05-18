@@ -254,7 +254,7 @@
 			"count": "[variables('numberOfInstances')]"
 		},
         "dependsOn": [
-            "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]",
+            "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), copyindex())]",
 			"[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]"
         ],
         "properties": {
