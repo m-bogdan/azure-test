@@ -71,7 +71,7 @@
         "userImageName" : "[concat('http://',variables('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',variables('userImageVhdName'))]",
         "osDiskVhdName" : "[concat('http://',variables('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',parameters('vmName'),'osDisk.vhd')]",
 		"adminUsername" : "bogdan",
-		"adminPassword" : "a12345!",
+		"adminPassword" : "Bogdan7",
 		"osType" : "linux"
     },
     "resources": [
