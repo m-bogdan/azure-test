@@ -156,6 +156,7 @@
                     "name" : "[concat(parameters('vmName'),'-osDisk')]",
                     "osType" : "[variables('osType')]",
                     "caching" : "ReadWrite",
+					"createOption" : "FromImage",
                     "image" : {
                         "uri" : "[variables('userImageName')]"
                     },
