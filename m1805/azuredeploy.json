@@ -75,7 +75,7 @@
 		"adminUsername" : "will_be_replaced_by_root",
 		"osType" : "linux",
 		"numberOfInstances" : 2,
-		"lbName" : "myloadBalancer",
+		"lbName" : "myLoadBalancer",
 		"availabilitySetName" : "oneNGAlwaysUp",
         "vnetID":"[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]",
 		"lbID" : "[resourceId('Microsoft.Network/loadBalancers',variables('lbName'))]",
@@ -148,9 +148,6 @@
                 "name": "ipconfig1",
                 "properties": {
                     "privateIPAllocationMethod": "Dynamic",
-                    "publicIPAddress": {
-                        "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"
-                    },
                     "subnet": {
                         "id": "[variables('subnet1Ref')]"
                     },
