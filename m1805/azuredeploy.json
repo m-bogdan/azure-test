@@ -197,7 +197,8 @@
                     },
 					"loadBalancerBackendAddressPools" : [{
 						"id" : "[concat(variables('lbID'), '/backendAddressPools/BackendPool1')]"
-					}]
+					}],
+					"loadBalancerInboundNatRules" : []
                 }
             }
             ]
@@ -331,7 +332,7 @@
                 "computername": "[parameters('vmName')]",
                 "adminUsername": "[variables('adminUsername')]",
                 "adminPassword": "[parameters('adminPassword')]",
-				"customData" : "[base64('This is a test for ARM Template Custom Data.')]"
+				"customData" : "[base64(concat('HAIP:',parameters('secondaryHABoxIP')))]"
             },
             "storageProfile": {
                 "osDisk" : {
@@ -375,8 +376,7 @@
             "osProfile": {
                 "computername": "[concat(parameters('vmName'),'ha')]",
                 "adminUsername": "[variables('adminUsername')]",
-                "adminPassword": "[parameters('adminPassword')]",
-				"customData" : "[base64('This is a test for ARM Template Custom Data.')]"
+                "adminPassword": "[parameters('adminPassword')]"
             },
             "storageProfile": {
                 "osDisk" : {
