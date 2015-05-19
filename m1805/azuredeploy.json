@@ -83,8 +83,8 @@
 		"publicIPAddressID": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]",
 		"frontEndIPConfigID": "[concat(variables('lbID'),'/frontendIPConfigurations/LoadBalancerFrontEnd')]",
 		"lbPoolID": "[concat(variables('lbID'),'/backendAddressPools/BackendPool1')]",
-		"lbSSHProbeID": "[concat(variables('lbID'),'/probes/tcpSSHProbe')]",
-		"lbMGMTProbeID": "[concat(variables('lbID'),'/probes/tcpMGMTProbe')]",
+		"lbSSLProbeID": "[concat(variables('lbID'),'/probes/tcpSSLProbe')]",
+		"lbVPNProbeID": "[concat(variables('lbID'),'/probes/tcpVPNProbe')]",
         "userImageName" : "[concat('http://',variables('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',variables('userImageVhdName'))]",
         "osDiskVhdName" : "[concat('http://',variables('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',parameters('vmName'),'osDisk')]"
     },
@@ -153,7 +153,15 @@
                     },
 					"loadBalancerBackendAddressPools" : [{
 						"id" : "[concat(variables('lbID'), '/backendAddressPools/BackendPool1')]"
-					}]
+					}],
+					"loadBalancerInboundNatRules":[
+					{
+						"id" : "[concat(variables('lbID'),'/inboundNatRules/SSH-VM', copyindex())]"
+					},
+					{
+						"id" : "[concat(variables('lbID'),'/inboundNatRules/MGMT-VM', copyindex())]"
+					}
+					]
                 }
             }
             ]
@@ -179,9 +187,59 @@
 			"backendAddressPools" : [{
 				"name": "BackendPool1"
 			}],
+			"inboundNatRules" : [
+			{
+				"name" : "SSH-VM0",
+				"propertties" : {
+					"frontendIPConfiguration" : {
+						"id": "[variables('frontEndIPConfigID')]
+					},
+					"protocol" : "tcp",
+					"frontendPort" : 22,
+					"backendPort" : 22,
+					"enableFloatingIP" : false
+				}
+			},
+			{
+				"name" : "SSH-VM1",
+				"propertties" : {
+					"frontendIPConfiguration" : {
+						"id": "[variables('frontEndIPConfigID')]
+					},
+					"protocol" : "tcp",
+					"frontendPort" : 10022,
+					"backendPort" : 22,
+					"enableFloatingIP" : false
+				}
+			},
+			{
+				"name" : "MGMT-VM0",
+				"propertties" : {
+					"frontendIPConfiguration" : {
+						"id": "[variables('frontEndIPConfigID')]
+					},
+					"protocol" : "tcp",
+					"frontendPort" : 807,
+					"backendPort" : 807,
+					"enableFloatingIP" : false
+				}
+			},
+			{
+				"name" : "MGMT-VM1",
+				"propertties" : {
+					"frontendIPConfiguration" : {
+						"id": "[variables('frontEndIPConfigID')]
+					},
+					"protocol" : "tcp",
+					"frontendPort" : 10807,
+					"backendPort" : 807,
+					"enableFloatingIP" : false
+				}
+			}
+			],
 			"loadBalancingRules" : [
 			{
-				"name" : "LBRuleSSH",
+				"name" : "LBRuleSSL",
 				"properties" : {
 					"frontendIPConfiguration": {
 						"id": "[variables('frontEndIPConfigID')]"
@@ -190,17 +248,17 @@
 						"id": "[variables('lbPoolID')]"
 					},
 					"protocol": "tcp",
-					"frontendPort": 22,
-					"backendPort": 22,
+					"frontendPort": 443,
+					"backendPort": 443,
 					"enableFloatingIP": false,
 					"idleTimeoutInMinutes": 5,
 					"probe" : {
-						"id": "[variables('lbSSHProbeID')]"
+						"id": "[variables('lbSSLProbeID')]"
 					}
 				}
 			},
 			{
-				"name" : "LBRuleMGMT",
+				"name" : "LBRuleVPN",
 				"properties" : {
 					"frontendIPConfiguration": {
 						"id": "[variables('frontEndIPConfigID')]"
@@ -209,19 +267,19 @@
 						"id": "[variables('lbPoolID')]"
 					},
 					"protocol": "tcp",
-					"frontendPort": 807,
-					"backendPort": 807,
+					"frontendPort": 691,
+					"backendPort": 691,
 					"enableFloatingIP": false,
 					"idleTimeoutInMinutes": 5,
 					"probe" : {
-						"id": "[variables('lbMGMTProbeID')]"
+						"id": "[variables('lbVPNProbeID')]"
 					}
 				}
 			}
 			],
 			"probes" : [
 			{
-				"name" : "tcpSSHProbe",
+				"name" : "tcpSSLProbe",
 				"properties" : {
 					"protocol": "tcp",
 					"port": 22,
@@ -230,7 +288,7 @@
 				}
 			},
 			{
-				"name" : "tcpMGMTProbe",
+				"name" : "tcpVPNProbe",
 				"properties" : {
 					"protocol": "tcp",
 					"port": 807,
