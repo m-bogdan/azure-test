@@ -6,13 +6,13 @@
 			"type": "string",
 			"defaultValue": "ngfw-543-182",
 			"metadata": {
-				"description": "Name of the VM"
+				"description": "Name of the primary VM"
 			}
 		},
         "dnsNameForPublicIP" : {
             "type" : "string",
             "metadata": {
-                "description": "Unique DNS Name for the Public IP used to access the Virtual Machine."
+                "description": "Unique DNS Name for the Public IP used to access the HA Cluster"
             }
         },
 		"virtualNetworkName": {
@@ -43,6 +43,18 @@
 				"description": "Subnet 1 address prefix in CIDR format"
 			}
 		},
+		"primaryHABoxIP" : {
+			"type" : "string",
+			"metadata" : {
+				"description" : "Static IP of active HA Box"
+			}
+		},
+		"secondaryHABoxIP" : {
+			"type" : "string",
+			"metadata" : {
+				"description" : "Static IP of inactive HA Box"
+			}
+		},
 		"location": {
 			"type": "string",
 			"allowedValues": ["East US", "West US", "West Europe", "East Asia", "Southeast Asia"],
@@ -68,7 +80,7 @@
     "variables": {
 		"userImageStorageAccountName" : "bmstoragex",
 		"userImageStorageContainerName" : "bm-vhd",
-		"userImageVhdName" : "GWAY-5.4.3-182.vhd",
+		"userImageVhdName" : "GWAY-6.1.0-112-hf84777-payg.vhd",
         "publicIPAddressName": "myPublicIP",
         "nicName": "myVMNic",
         "publicIPAddressType" : "Dynamic",
@@ -132,12 +144,8 @@
     {
         "apiVersion": "2015-05-01-preview",
         "type": "Microsoft.Network/networkInterfaces",
-        "name": "[concat(variables('nicName'),copyindex())]",
+        "name": "[variables('nicName')]",
         "location": "[parameters('location')]",
-		"copy" : {
-			"name" : "nicLoop",
-			"count": "[variables('numberOfInstances')]"
-		},
         "dependsOn": [
             "[concat('Microsoft.Network/loadBalancers/', variables('lbName'))]",
             "[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]"
@@ -147,7 +155,8 @@
             {
                 "name": "ipconfig1",
                 "properties": {
-                    "privateIPAllocationMethod": "Dynamic",
+                    "privateIPAllocationMethod": "Static",
+					"privateIPAddress" : "[parameters('primaryHABoxIP')]",
                     "subnet": {
                         "id": "[variables('subnet1Ref')]"
                     },
@@ -156,12 +165,39 @@
 					}],
 					"loadBalancerInboundNatRules":[
 					{
-						"id" : "[concat(variables('lbID'),'/inboundNatRules/SSH-VM', copyindex())]"
+						"id" : "[concat(variables('lbID'),'/inboundNatRules/SSH-VM')]"
 					},
 					{
-						"id" : "[concat(variables('lbID'),'/inboundNatRules/MGMT-VM', copyindex())]"
+						"id" : "[concat(variables('lbID'),'/inboundNatRules/MGMT-VM')]"
 					}
 					]
+                }
+            }
+            ]
+        }
+    },
+    {
+        "apiVersion": "2015-05-01-preview",
+        "type": "Microsoft.Network/networkInterfaces",
+        "name": "[concat(variables('nicName'),'ha')]",
+        "location": "[parameters('location')]",
+        "dependsOn": [
+            "[concat('Microsoft.Network/loadBalancers/', variables('lbName'))]",
+            "[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]"
+        ],
+        "properties": {
+            "ipConfigurations": [
+            {
+                "name": "ipconfig2",
+                "properties": {
+                    "privateIPAllocationMethod": "Static",
+					"privateIPAddress" : "[parameters('secondaryHABoxIP')]",
+                    "subnet": {
+                        "id": "[variables('subnet1Ref')]"
+                    },
+					"loadBalancerBackendAddressPools" : [{
+						"id" : "[concat(variables('lbID'), '/backendAddressPools/BackendPool1')]"
+					}]
                 }
             }
             ]
@@ -189,7 +225,7 @@
 			}],
 			"inboundNatRules" : [
 			{
-				"name" : "SSH-VM0",
+				"name" : "SSH-VM",
 				"properties" : {
 					"frontendIPConfiguration" : {
 						"id": "[variables('frontEndIPConfigID')]"
@@ -201,37 +237,13 @@
 				}
 			},
 			{
-				"name" : "SSH-VM1",
-				"properties" : {
-					"frontendIPConfiguration" : {
-						"id": "[variables('frontEndIPConfigID')]"
-					},
-					"protocol" : "tcp",
-					"frontendPort" : 10022,
-					"backendPort" : 22,
-					"enableFloatingIP" : false
-				}
-			},
-			{
-				"name" : "MGMT-VM0",
+				"name" : "MGMT-VM",
 				"properties" : {
 					"frontendIPConfiguration" : {
 						"id": "[variables('frontEndIPConfigID')]"
 					},
 					"protocol" : "tcp",
 					"frontendPort" : 807,
-					"backendPort" : 807,
-					"enableFloatingIP" : false
-				}
-			},
-			{
-				"name" : "MGMT-VM1",
-				"properties" : {
-					"frontendIPConfiguration" : {
-						"id": "[variables('frontEndIPConfigID')]"
-					},
-					"protocol" : "tcp",
-					"frontendPort" : 10807,
 					"backendPort" : 807,
 					"enableFloatingIP" : false
 				}
@@ -282,7 +294,7 @@
 				"name" : "tcpSSLProbe",
 				"properties" : {
 					"protocol": "tcp",
-					"port": 22,
+					"port": 443,
 					"intervalinseconds": "5",
 					"numberofprobes": "2"
 				}
@@ -291,7 +303,7 @@
 				"name" : "tcpVPNProbe",
 				"properties" : {
 					"protocol": "tcp",
-					"port": 807,
+					"port": 691,
 					"intervalinseconds": "5",
 					"numberofprobes": "2"
 				}
@@ -302,14 +314,10 @@
     {
         "apiVersion": "2015-05-01-preview",
         "type": "Microsoft.Compute/virtualMachines",
-        "name": "[concat(parameters('vmName'),copyindex())]",
+        "name": "[parameters('vmName')]",
         "location": "[parameters('location')]",
-		"copy": {
-			"name": "virtualMachineLoop",
-			"count": "[variables('numberOfInstances')]"
-		},
         "dependsOn": [
-            "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), copyindex())]",
+            "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]",
 			"[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]"
         ],
         "properties": {
@@ -335,14 +343,59 @@
                         "uri" : "[variables('userImageName')]"
                     },
                     "vhd" : {
-                        "uri" : "[concat(variables('osDiskVhdName'),copyindex(),'.vhd')]"
+                        "uri" : "[concat(variables('osDiskVhdName'),'.vhd')]"
                     }
                 }
             },
             "networkProfile": {
                 "networkInterfaces" : [
                 {
-                    "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('nicName'),copyindex()))]"
+                    "id": "[resourceId('Microsoft.Network/networkInterfaces',variables('nicName'))]"
+                }
+                ]
+            }
+        }
+    },
+    {
+        "apiVersion": "2015-05-01-preview",
+        "type": "Microsoft.Compute/virtualMachines",
+        "name": "[concat(parameters('vmName'),'ha')]",
+        "location": "[parameters('location')]",
+        "dependsOn": [
+            "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), 'ha')]",
+			"[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]"
+        ],
+        "properties": {
+			"availabilitySet" : {
+				"id": "[resourceId('Microsoft.Compute/availabilitySets',variables('availabilitySetName'))]"
+			},
+            "hardwareProfile": {
+                "vmSize": "[parameters('vmSize')]"
+            },
+            "osProfile": {
+                "computername": "[concat(parameters('vmName'),''ha)]",
+                "adminUsername": "[variables('adminUsername')]",
+                "adminPassword": "[parameters('adminPassword')]",
+				"customData" : "[base64('This is a test for ARM Template Custom Data.')]"
+            },
+            "storageProfile": {
+                "osDisk" : {
+                    "name" : "[concat(parameters('vmName'),'-osDisk')]",
+                    "osType" : "[variables('osType')]",
+                    "caching" : "ReadWrite",
+					"createOption" : "FromImage",
+                    "image" : {
+                        "uri" : "[variables('userImageName')]"
+                    },
+                    "vhd" : {
+                        "uri" : "[concat(variables('osDiskVhdName'),'ha','.vhd')]"
+                    }
+                }
+            },
+            "networkProfile": {
+                "networkInterfaces" : [
+                {
+                    "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('nicName'),'ha'))]"
                 }
                 ]
             }
