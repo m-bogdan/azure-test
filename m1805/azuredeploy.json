@@ -4,7 +4,7 @@
     "parameters" : {
 		"vmName": {
 			"type": "string",
-			"defaultValue": "ngfw-543-182",
+			"defaultValue": "ngfw-xx",
 			"metadata": {
 				"description": "Name of the primary VM"
 			}
@@ -80,7 +80,7 @@
     "variables": {
 		"userImageStorageAccountName" : "bmstoragex",
 		"userImageStorageContainerName" : "bm-vhd",
-		"userImageVhdName" : "GWAY-6.1.0-112-hf84777-payg.vhd",
+		"userImageVhdName" : "GWAY-5.4.3-182.vhd",
         "publicIPAddressName": "myPublicIP",
         "nicName": "myVMNic",
         "publicIPAddressType" : "Dynamic",
