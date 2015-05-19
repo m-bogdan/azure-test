@@ -373,7 +373,7 @@
                 "vmSize": "[parameters('vmSize')]"
             },
             "osProfile": {
-                "computername": "[concat(parameters('vmName'),''ha)]",
+                "computername": "[concat(parameters('vmName'),'ha')]",
                 "adminUsername": "[variables('adminUsername')]",
                 "adminPassword": "[parameters('adminPassword')]",
 				"customData" : "[base64('This is a test for ARM Template Custom Data.')]"
