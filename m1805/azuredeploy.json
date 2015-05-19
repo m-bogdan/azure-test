@@ -190,9 +190,9 @@
 			"inboundNatRules" : [
 			{
 				"name" : "SSH-VM0",
-				"propertties" : {
+				"properties" : {
 					"frontendIPConfiguration" : {
-						"id": "[variables('frontEndIPConfigID')]
+						"id": "[variables('frontEndIPConfigID')]"
 					},
 					"protocol" : "tcp",
 					"frontendPort" : 22,
@@ -202,9 +202,9 @@
 			},
 			{
 				"name" : "SSH-VM1",
-				"propertties" : {
+				"properties" : {
 					"frontendIPConfiguration" : {
-						"id": "[variables('frontEndIPConfigID')]
+						"id": "[variables('frontEndIPConfigID')]"
 					},
 					"protocol" : "tcp",
 					"frontendPort" : 10022,
@@ -214,9 +214,9 @@
 			},
 			{
 				"name" : "MGMT-VM0",
-				"propertties" : {
+				"properties" : {
 					"frontendIPConfiguration" : {
-						"id": "[variables('frontEndIPConfigID')]
+						"id": "[variables('frontEndIPConfigID')]"
 					},
 					"protocol" : "tcp",
 					"frontendPort" : 807,
@@ -226,9 +226,9 @@
 			},
 			{
 				"name" : "MGMT-VM1",
-				"propertties" : {
+				"properties" : {
 					"frontendIPConfiguration" : {
-						"id": "[variables('frontEndIPConfigID')]
+						"id": "[variables('frontEndIPConfigID')]"
 					},
 					"protocol" : "tcp",
 					"frontendPort" : 10807,
