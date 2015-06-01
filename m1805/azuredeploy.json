@@ -335,14 +335,17 @@
 				"customData" : "[base64(concat('HAIP:',parameters('secondaryHABoxIP')))]"
             },
             "storageProfile": {
+				"imageReference" : {
+					"publisher" : "barracudanetworks",
+					"offer" : "barracuda-ng-firewall",
+					"sku" : "hourly",
+					"version" : "latest"
+				},
                 "osDisk" : {
                     "name" : "[concat(parameters('vmName'),'-osDisk')]",
                     "osType" : "[variables('osType')]",
                     "caching" : "ReadWrite",
 					"createOption" : "FromImage",
-                    "image" : {
-                        "uri" : "[variables('userImageName')]"
-                    },
                     "vhd" : {
                         "uri" : "[concat(variables('osDiskVhdName'),'.vhd')]"
                     }
@@ -379,14 +382,17 @@
                 "adminPassword": "[parameters('adminPassword')]"
             },
             "storageProfile": {
+				"imageReference" : {
+					"publisher" : "barracudanetworks",
+					"offer" : "barracuda-ng-firewall",
+					"sku" : "hourly",
+					"version" : "latest"
+				},
                 "osDisk" : {
                     "name" : "[concat(parameters('vmName'),'-osDisk')]",
                     "osType" : "[variables('osType')]",
                     "caching" : "ReadWrite",
 					"createOption" : "FromImage",
-                    "image" : {
-                        "uri" : "[variables('userImageName')]"
-                    },
                     "vhd" : {
                         "uri" : "[concat(variables('osDiskVhdName'),'ha','.vhd')]"
                     }
