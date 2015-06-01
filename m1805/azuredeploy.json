@@ -343,7 +343,6 @@
 				},
                 "osDisk" : {
                     "name" : "[concat(parameters('vmName'),'-osDisk')]",
-                    "osType" : "[variables('osType')]",
                     "caching" : "ReadWrite",
 					"createOption" : "FromImage",
                     "vhd" : {
@@ -390,7 +389,6 @@
 				},
                 "osDisk" : {
                     "name" : "[concat(parameters('vmName'),'-osDisk')]",
-                    "osType" : "[variables('osType')]",
                     "caching" : "ReadWrite",
 					"createOption" : "FromImage",
                     "vhd" : {
