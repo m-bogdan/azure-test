@@ -332,7 +332,7 @@
                 "computername": "[parameters('vmName')]",
                 "adminUsername": "[variables('adminUsername')]",
                 "adminPassword": "[parameters('adminPassword')]",
-				"customData" : "[base64(concat('HAIP:',parameters('secondaryHABoxIP')))]"
+				"customData" : "[base64(concat('{\"version\" : \"1.0\", \"dha\" : { \"type\" : \"primary\", \"ip\" : \"', parameters('primaryHABoxIP'), '\", \"haip\" : \"', parameters('secondaryHABoxIP'), '\" }}'))]"
             },
             "storageProfile": {
                 "osDisk" : {
@@ -376,7 +376,8 @@
             "osProfile": {
                 "computername": "[concat(parameters('vmName'),'ha')]",
                 "adminUsername": "[variables('adminUsername')]",
-                "adminPassword": "[parameters('adminPassword')]"
+                "adminPassword": "[parameters('adminPassword')]",
+				"customData" : "[base64(concat('{\"version\" : \"1.0\", \"dha\" : { \"type\" : \"secondary\", \"ip\" : \"', parameters('secondaryHABoxIP'), '\" }}'))]"
             },
             "storageProfile": {
                 "osDisk" : {
