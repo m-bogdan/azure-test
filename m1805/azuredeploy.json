@@ -377,7 +377,7 @@
                 "computername": "[concat(parameters('vmName'),'ha')]",
                 "adminUsername": "[variables('adminUsername')]",
                 "adminPassword": "[parameters('adminPassword')]",
-				"customData" : "[base64(concat('{\"version\" : \"1.0\", \"dha\" : { \"type\" : \"secondary\", \"ip\" : \"', parameters('secondaryHABoxIP'), '\", \"gateway\" : \"', parameters('subnet1Prefix'), '\", \"password\" : \"', parameters('adminPassword'), '\" }}'))]"
+				"customData" : "[base64(concat('{\"version\" : \"1.0\", \"dha\" : { \"type\" : \"secondary\", \"haip\" : \"', parameters('secondaryHABoxIP'), '\", \"gateway\" : \"', parameters('subnet1Prefix'), '\", \"password\" : \"', parameters('adminPassword'), '\" }}'))]"
             },
             "storageProfile": {
                 "osDisk" : {
