@@ -80,7 +80,7 @@
     "variables": {
 		"userImageStorageAccountName" : "bmstoragex",
 		"userImageStorageContainerName" : "bm-vhd",
-		"userImageVhdName" : "GWAY-5.4.3-182.vhd",
+		"userImageVhdName" : "GWAY-7.0.0-355.nightbuild-Azure.vhd",
         "publicIPAddressName": "myPublicIP",
         "nicName": "myVMNic",
         "publicIPAddressType" : "Dynamic",
@@ -97,7 +97,7 @@
 		"lbPoolID": "[concat(variables('lbID'),'/backendAddressPools/BackendPool1')]",
 		"lbSSLProbeID": "[concat(variables('lbID'),'/probes/tcpSSLProbe')]",
 		"lbVPNProbeID": "[concat(variables('lbID'),'/probes/tcpVPNProbe')]",
-        "userImageName" : "[concat('http://',variables('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',variables('userImageVhdName'))]",
+        "userImageName" : "[concat('http://','cudademo','.blob.core.windows.net/','vhd','/',variables('userImageVhdName'))]",
         "osDiskVhdName" : "[concat('http://',variables('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',parameters('vmName'),'osDisk')]"
     },
     "resources": [
