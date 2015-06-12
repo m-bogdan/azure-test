@@ -97,7 +97,7 @@
 		"lbPoolID": "[concat(variables('lbID'),'/backendAddressPools/BackendPool1')]",
 		"lbSSLProbeID": "[concat(variables('lbID'),'/probes/tcpSSLProbe')]",
 		"lbVPNProbeID": "[concat(variables('lbID'),'/probes/tcpVPNProbe')]",
-        "userImageName" : "[concat('http://','cudademo','.blob.core.windows.net/','vhd','/',variables('userImageVhdName'))]",
+        "userImageName" : "[concat('http://',variables('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',variables('userImageVhdName'))]",
         "osDiskVhdName" : "[concat('http://',variables('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',parameters('vmName'),'osDisk')]"
     },
     "resources": [
