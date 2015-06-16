@@ -339,7 +339,7 @@
 				"imageReference" : {
 					"publisher": "[variables('imagePublisher')]",
 					"offer": "[variables('imageOffer')]",
-					"sku" : "[parameters('ubuntuOSVersion')]",
+					"sku" : "[parameters('imageSku')]",
 					"version":"latest"
 				},
                 "osDisk" : {
@@ -387,7 +387,7 @@
 				"imageReference" : {
 					"publisher": "[variables('imagePublisher')]",
 					"offer": "[variables('imageOffer')]",
-					"sku" : "[parameters('ubuntuOSVersion')]",
+					"sku" : "[parameters('imageSku')]",
 					"version":"latest"
 				},
                 "osDisk" : {
