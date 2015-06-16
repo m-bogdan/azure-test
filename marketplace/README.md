@@ -11,8 +11,6 @@ See it in portal:
 
 
 | Name | Description
-
 |:--- |:---|
 |vmName | Name of the primary VM, an "ha" is added for the secondary box|
 |adminPassword| Initial password for root user on both boxes|
-|
