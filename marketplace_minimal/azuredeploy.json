@@ -147,18 +147,7 @@
 					"privateIPAddress" : "[parameters('primaryHABoxIP')]",
 					"subnet": {
 						"id": "[variables('subnet1Ref')]"
-					},
-					"loadBalancerBackendAddressPools" : [{
-						"id" : "[concat(variables('lbID'), '/backendAddressPools/BackendPool1')]"
-					}],
-					"loadBalancerInboundNatRules":[
-					{
-						"id" : "[concat(variables('lbID'),'/inboundNatRules/SSH-VM')]"
-					},
-					{
-						"id" : "[concat(variables('lbID'),'/inboundNatRules/MGMT-VM')]"
 					}
-					]
 				}
 			}
 			]
