@@ -76,7 +76,7 @@
 		"userImageStorageContainerName" : "bm-vhd",
 		"imagePublisher" : "barracudanetworks",
 		"imageOffer" : "barracuda-ng-firewall",
-		"imageSku" : "hourly",
+		"imageSku" : "byol",
 		"publicIPAddressName": "myPublicIP",
 		"nicName": "myVMNic",
 		"publicIPAddressType" : "Dynamic",
