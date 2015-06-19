@@ -172,7 +172,6 @@
 				"computername": "[parameters('vmName')]",
 				"adminUsername": "[variables('adminUsername')]",
 				"adminPassword": "[parameters('adminPassword')]",
-				"customData" : "[base64(concat('{\"version\" : \"1.0\", \"dha\" : { \"flags\" : [\"primary\"], \"ip\" : \"', parameters('primaryHABoxIP'), '\", \"haip\" : \"', parameters('secondaryHABoxIP'), '\", \"gateway\" : \"', parameters('subnet1Prefix'), '\", \"password\" : \"', parameters('adminPassword'), '\" }}'))]"
 			},
 			"storageProfile": {
 				"imageReference" : {
