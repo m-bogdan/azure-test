@@ -162,9 +162,6 @@
 			"[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
 		],
 		"properties": {
-			"availabilitySet" : {
-				"id": "[resourceId('Microsoft.Compute/availabilitySets',variables('availabilitySetName'))]"
-			},
 			"hardwareProfile": {
 				"vmSize": "[parameters('vmSize')]"
 			},
