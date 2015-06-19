@@ -76,7 +76,7 @@
 		"userImageStorageContainerName" : "bm-vhd",
 		"imagePublisher" : "barracudanetworks",
 		"imageOffer" : "barracuda-ng-firewall",
-		"imageSku" : "byol",
+		"imageSku" : "hourly",
 		"publicIPAddressName": "myPublicIP",
 		"nicName": "myVMNic",
 		"publicIPAddressType" : "Dynamic",
@@ -174,8 +174,7 @@
 				"imageReference" : {
 					"publisher": "[variables('imagePublisher')]",
 					"offer": "[variables('imageOffer')]",
-					"sku" : "[variables('imageSku')]",
-					"version":"latest"
+					"sku" : "[variables('imageSku')]"
 				},
 				"osDisk" : {
 					"name" : "[concat(parameters('vmName'),'-osDisk')]",
