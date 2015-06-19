@@ -174,7 +174,8 @@
 				"imageReference" : {
 					"publisher": "[variables('imagePublisher')]",
 					"offer": "[variables('imageOffer')]",
-					"sku" : "[variables('imageSku')]"
+					"sku" : "[variables('imageSku')]",
+					"version" : "6.1.0112"
 				},
 				"osDisk" : {
 					"name" : "[concat(parameters('vmName'),'-osDisk')]",
