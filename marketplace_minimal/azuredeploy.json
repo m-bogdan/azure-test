@@ -77,6 +77,7 @@
 		"imagePublisher" : "barracudanetworks",
 		"imageOffer" : "barracuda-ng-firewall",
 		"imageSku" : "hourly",
+		"imageVersion" : "6.1.0112",
 		"publicIPAddressName": "myPublicIP",
 		"nicName": "myVMNic",
 		"publicIPAddressType" : "Dynamic",
@@ -172,10 +173,10 @@
 			},
 			"storageProfile": {
 				"imageReference" : {
-					"publisher": "[variables('imagePublisher')]",
-					"offer": "[variables('imageOffer')]",
-					"sku" : "[variables('imageSku')]",
-					"version" : "6.1.0112"
+					"publisher": "Canonical",
+					"offer": "UbuntuServer",
+					"sku" : "14.10",
+					"version" : "latest"
 				},
 				"osDisk" : {
 					"name" : "[concat(parameters('vmName'),'-osDisk')]",
