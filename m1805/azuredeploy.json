@@ -1,7 +1,7 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters" : {
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters" : {
 		"vmName": {
 			"type": "string",
 			"defaultValue": "ngfw-xx",
@@ -9,12 +9,12 @@
 				"description": "Name of the primary VM"
 			}
 		},
-        "dnsNameForPublicIP" : {
-            "type" : "string",
-            "metadata": {
-                "description": "Unique DNS Name for the Public IP used to access the HA Cluster"
-            }
-        },
+		"dnsNameForPublicIP" : {
+			"type" : "string",
+			"metadata": {
+				"description": "Unique DNS Name for the Public IP used to access the HA Cluster"
+			}
+		},
 		"virtualNetworkName": {
 			"type": "string",
 			"defaultValue" : "VNet",
@@ -63,44 +63,44 @@
 			}
 
 		},
-        "vmSize": {
-            "type": "string",
+		"vmSize": {
+			"type": "string",
 			"defaultValue" : "Standard_A0",
-            "metadata": {
-                "description": "This is the size of your VM"
-            }
-        },
-        "adminPassword": {
-            "type": "securestring",
-            "metadata": {
-              "description": "Admin password"
-            }
-        }
-    },
-    "variables": {
+			"metadata": {
+				"description": "This is the size of your VM"
+			}
+		},
+		"adminPassword": {
+			"type": "securestring",
+			"metadata": {
+			  "description": "Admin password"
+			}
+		}
+	},
+	"variables": {
 		"userImageStorageAccountName" : "bmstoragex",
 		"userImageStorageContainerName" : "bm-vhd",
 		"userImageVhdName" : "GWAY-7.0.0-355.i-Azure.vhd",
-        "publicIPAddressName": "myPublicIP",
-        "nicName": "myVMNic",
-        "publicIPAddressType" : "Dynamic",
+		"publicIPAddressName": "myPublicIP",
+		"nicName": "myVMNic",
+		"publicIPAddressType" : "Dynamic",
 		"adminUsername" : "will_be_replaced_by_root",
 		"osType" : "linux",
 		"numberOfInstances" : 2,
 		"lbName" : "myLoadBalancer",
 		"availabilitySetName" : "oneNGAlwaysUp",
-        "vnetID":"[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]",
+		"vnetID":"[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]",
 		"lbID" : "[resourceId('Microsoft.Network/loadBalancers',variables('lbName'))]",
-        "subnet1Ref" : "[concat(variables('vnetID'),'/subnets/',parameters('subnet1Name'))]",
+		"subnet1Ref" : "[concat(variables('vnetID'),'/subnets/',parameters('subnet1Name'))]",
 		"publicIPAddressID": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]",
 		"frontEndIPConfigID": "[concat(variables('lbID'),'/frontendIPConfigurations/LoadBalancerFrontEnd')]",
 		"lbPoolID": "[concat(variables('lbID'),'/backendAddressPools/BackendPool1')]",
 		"lbSSLProbeID": "[concat(variables('lbID'),'/probes/tcpSSLProbe')]",
 		"lbVPNProbeID": "[concat(variables('lbID'),'/probes/tcpVPNProbe')]",
-        "userImageName" : "[concat('http://',variables('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',variables('userImageVhdName'))]",
-        "osDiskVhdName" : "[concat('http://',variables('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',parameters('vmName'),'osDisk')]"
-    },
-    "resources": [
+		"userImageName" : "[concat('http://',variables('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',variables('userImageVhdName'))]",
+		"osDiskVhdName" : "[concat('http://',variables('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',parameters('vmName'),'osDisk')]"
+	},
+	"resources": [
 	{
 		"apiVersion": "2015-05-01-preview",
 		"type": "Microsoft.Compute/availabilitySets",
@@ -108,58 +108,58 @@
 		"location": "[parameters('location')]",
 		"properties" : {}
 	},
-    {
-        "apiVersion": "2015-05-01-preview",
-        "type": "Microsoft.Network/publicIPAddresses",
-        "name": "[variables('publicIPAddressName')]",
-        "location": "[parameters('location')]",
-        "properties": {
-            "publicIPAllocationMethod": "[variables('publicIPAddressType')]",
-            "dnsSettings": {
-                "domainNameLabel": "[parameters('dnsNameForPublicIP')]"
-            }
-        }
-    },
-    {
-      "apiVersion": "2015-05-01-preview",
-      "type": "Microsoft.Network/virtualNetworks",
-      "name": "[parameters('virtualNetworkName')]",
-      "location": "[parameters('location')]",
-      "properties": {
-        "addressSpace": {
-          "addressPrefixes": [
-            "[parameters('addressPrefix')]"
-          ]
-        },
-        "subnets": [
-          {
-            "name": "[parameters('subnet1Name')]",
-            "properties" : {
-                "addressPrefix": "[parameters('subnet1Prefix')]"
-            }
-          }
-        ]
-      }
-    },
-    {
-        "apiVersion": "2015-05-01-preview",
-        "type": "Microsoft.Network/networkInterfaces",
-        "name": "[variables('nicName')]",
-        "location": "[parameters('location')]",
-        "dependsOn": [
-            "[concat('Microsoft.Network/loadBalancers/', variables('lbName'))]",
-            "[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]"
-        ],
-        "properties": {
-            "ipConfigurations": [
-            {
-                "name": "ipconfig1",
-                "properties": {
-                    "privateIPAllocationMethod": "Static",
+	{
+		"apiVersion": "2015-05-01-preview",
+		"type": "Microsoft.Network/publicIPAddresses",
+		"name": "[variables('publicIPAddressName')]",
+		"location": "[parameters('location')]",
+		"properties": {
+			"publicIPAllocationMethod": "[variables('publicIPAddressType')]",
+			"dnsSettings": {
+				"domainNameLabel": "[parameters('dnsNameForPublicIP')]"
+			}
+		}
+	},
+	{
+	  "apiVersion": "2015-05-01-preview",
+	  "type": "Microsoft.Network/virtualNetworks",
+	  "name": "[parameters('virtualNetworkName')]",
+	  "location": "[parameters('location')]",
+	  "properties": {
+		"addressSpace": {
+		  "addressPrefixes": [
+			"[parameters('addressPrefix')]"
+		  ]
+		},
+		"subnets": [
+		  {
+			"name": "[parameters('subnet1Name')]",
+			"properties" : {
+				"addressPrefix": "[parameters('subnet1Prefix')]"
+			}
+		  }
+		]
+	  }
+	},
+	{
+		"apiVersion": "2015-05-01-preview",
+		"type": "Microsoft.Network/networkInterfaces",
+		"name": "[variables('nicName')]",
+		"location": "[parameters('location')]",
+		"dependsOn": [
+			"[concat('Microsoft.Network/loadBalancers/', variables('lbName'))]",
+			"[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]"
+		],
+		"properties": {
+			"ipConfigurations": [
+			{
+				"name": "ipconfig1",
+				"properties": {
+					"privateIPAllocationMethod": "Static",
 					"privateIPAddress" : "[parameters('primaryHABoxIP')]",
-                    "subnet": {
-                        "id": "[variables('subnet1Ref')]"
-                    },
+					"subnet": {
+						"id": "[variables('subnet1Ref')]"
+					},
 					"loadBalancerBackendAddressPools" : [{
 						"id" : "[concat(variables('lbID'), '/backendAddressPools/BackendPool1')]"
 					}],
@@ -171,39 +171,39 @@
 						"id" : "[concat(variables('lbID'),'/inboundNatRules/MGMT-VM')]"
 					}
 					]
-                }
-            }
-            ]
-        }
-    },
-    {
-        "apiVersion": "2015-05-01-preview",
-        "type": "Microsoft.Network/networkInterfaces",
-        "name": "[concat(variables('nicName'),'ha')]",
-        "location": "[parameters('location')]",
-        "dependsOn": [
-            "[concat('Microsoft.Network/loadBalancers/', variables('lbName'))]",
-            "[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]"
-        ],
-        "properties": {
-            "ipConfigurations": [
-            {
-                "name": "ipconfig2",
-                "properties": {
-                    "privateIPAllocationMethod": "Static",
+				}
+			}
+			]
+		}
+	},
+	{
+		"apiVersion": "2015-05-01-preview",
+		"type": "Microsoft.Network/networkInterfaces",
+		"name": "[concat(variables('nicName'),'ha')]",
+		"location": "[parameters('location')]",
+		"dependsOn": [
+			"[concat('Microsoft.Network/loadBalancers/', variables('lbName'))]",
+			"[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]"
+		],
+		"properties": {
+			"ipConfigurations": [
+			{
+				"name": "ipconfig2",
+				"properties": {
+					"privateIPAllocationMethod": "Static",
 					"privateIPAddress" : "[parameters('secondaryHABoxIP')]",
-                    "subnet": {
-                        "id": "[variables('subnet1Ref')]"
-                    },
+					"subnet": {
+						"id": "[variables('subnet1Ref')]"
+					},
 					"loadBalancerBackendAddressPools" : [{
 						"id" : "[concat(variables('lbID'), '/backendAddressPools/BackendPool1')]"
 					}],
 					"loadBalancerInboundNatRules" : []
-                }
-            }
-            ]
-        }
-    },
+				}
+			}
+			]
+		}
+	},
 	{
 		"apiVersion": "2015-05-01-preview",
 		"type": "Microsoft.Network/loadBalancers",
@@ -312,95 +312,95 @@
 			]
 		}
 	},
-    {
-        "apiVersion": "2015-05-01-preview",
-        "type": "Microsoft.Compute/virtualMachines",
-        "name": "[parameters('vmName')]",
-        "location": "[parameters('location')]",
-        "dependsOn": [
-            "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]",
+	{
+		"apiVersion": "2015-05-01-preview",
+		"type": "Microsoft.Compute/virtualMachines",
+		"name": "[parameters('vmName')]",
+		"location": "[parameters('location')]",
+		"dependsOn": [
+			"[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]",
 			"[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]"
-        ],
-        "properties": {
+		],
+		"properties": {
 			"availabilitySet" : {
 				"id": "[resourceId('Microsoft.Compute/availabilitySets',variables('availabilitySetName'))]"
 			},
-            "hardwareProfile": {
-                "vmSize": "[parameters('vmSize')]"
-            },
-            "osProfile": {
-                "computername": "[parameters('vmName')]",
-                "adminUsername": "[variables('adminUsername')]",
-                "adminPassword": "[parameters('adminPassword')]",
+			"hardwareProfile": {
+				"vmSize": "[parameters('vmSize')]"
+			},
+			"osProfile": {
+				"computername": "[parameters('vmName')]",
+				"adminUsername": "[variables('adminUsername')]",
+				"adminPassword": "[parameters('adminPassword')]",
 				"customData" : "[base64(concat('{\"version\" : \"1.0\", \"dha\" : { \"flags\" : [\"primary\"], \"ip\" : \"', parameters('primaryHABoxIP'), '\", \"haip\" : \"', parameters('secondaryHABoxIP'), '\", \"gateway\" : \"', parameters('subnet1Prefix'), '\", \"password\" : \"', parameters('adminPassword'), '\" }}'))]"
-            },
-            "storageProfile": {
-                "osDisk" : {
-                    "name" : "[concat(parameters('vmName'),'-osDisk')]",
-                    "osType" : "[variables('osType')]",
-                    "caching" : "ReadWrite",
+			},
+			"storageProfile": {
+				"osDisk" : {
+					"name" : "[concat(parameters('vmName'),'-osDisk')]",
+					"osType" : "[variables('osType')]",
+					"caching" : "ReadWrite",
 					"createOption" : "FromImage",
-                    "image" : {
-                        "uri" : "[variables('userImageName')]"
-                    },
-                    "vhd" : {
-                        "uri" : "[concat(variables('osDiskVhdName'),'.vhd')]"
-                    }
-                }
-            },
-            "networkProfile": {
-                "networkInterfaces" : [
-                {
-                    "id": "[resourceId('Microsoft.Network/networkInterfaces',variables('nicName'))]"
-                }
-                ]
-            }
-        }
-    },
-    {
-        "apiVersion": "2015-05-01-preview",
-        "type": "Microsoft.Compute/virtualMachines",
-        "name": "[concat(parameters('vmName'),'ha')]",
-        "location": "[parameters('location')]",
-        "dependsOn": [
-            "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), 'ha')]",
+					"image" : {
+						"uri" : "[variables('userImageName')]"
+					},
+					"vhd" : {
+						"uri" : "[concat(variables('osDiskVhdName'),'.vhd')]"
+					}
+				}
+			},
+			"networkProfile": {
+				"networkInterfaces" : [
+				{
+					"id": "[resourceId('Microsoft.Network/networkInterfaces',variables('nicName'))]"
+				}
+				]
+			}
+		}
+	},
+	{
+		"apiVersion": "2015-05-01-preview",
+		"type": "Microsoft.Compute/virtualMachines",
+		"name": "[concat(parameters('vmName'),'ha')]",
+		"location": "[parameters('location')]",
+		"dependsOn": [
+			"[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), 'ha')]",
 			"[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]"
-        ],
-        "properties": {
+		],
+		"properties": {
 			"availabilitySet" : {
 				"id": "[resourceId('Microsoft.Compute/availabilitySets',variables('availabilitySetName'))]"
 			},
-            "hardwareProfile": {
-                "vmSize": "[parameters('vmSize')]"
-            },
-            "osProfile": {
-                "computername": "[concat(parameters('vmName'),'ha')]",
-                "adminUsername": "[variables('adminUsername')]",
-                "adminPassword": "[parameters('adminPassword')]",
+			"hardwareProfile": {
+				"vmSize": "[parameters('vmSize')]"
+			},
+			"osProfile": {
+				"computername": "[concat(parameters('vmName'),'ha')]",
+				"adminUsername": "[variables('adminUsername')]",
+				"adminPassword": "[parameters('adminPassword')]",
 				"customData" : "[base64(concat('{\"version\" : \"1.0\", \"dha\" : { \"haip\" : \"', parameters('secondaryHABoxIP'), '\", \"gateway\" : \"', parameters('subnet1Prefix'), '\", \"password\" : \"', parameters('adminPassword'), '\" }}'))]"
-            },
-            "storageProfile": {
-                "osDisk" : {
-                    "name" : "[concat(parameters('vmName'),'-osDisk')]",
-                    "osType" : "[variables('osType')]",
-                    "caching" : "ReadWrite",
+			},
+			"storageProfile": {
+				"osDisk" : {
+					"name" : "[concat(parameters('vmName'),'-osDisk')]",
+					"osType" : "[variables('osType')]",
+					"caching" : "ReadWrite",
 					"createOption" : "FromImage",
-                    "image" : {
-                        "uri" : "[variables('userImageName')]"
-                    },
-                    "vhd" : {
-                        "uri" : "[concat(variables('osDiskVhdName'),'ha','.vhd')]"
-                    }
-                }
-            },
-            "networkProfile": {
-                "networkInterfaces" : [
-                {
-                    "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('nicName'),'ha'))]"
-                }
-                ]
-            }
-        }
-    }
-    ]
+					"image" : {
+						"uri" : "[variables('userImageName')]"
+					},
+					"vhd" : {
+						"uri" : "[concat(variables('osDiskVhdName'),'ha','.vhd')]"
+					}
+				}
+			},
+			"networkProfile": {
+				"networkInterfaces" : [
+				{
+					"id": "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('nicName'),'ha'))]"
+				}
+				]
+			}
+		}
+	}
+	]
 }
