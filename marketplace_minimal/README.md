@@ -1,5 +1,5 @@
 # marketplace_minimal
-test for arm templates
+test for arm templates from marketplace
 
 [![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/)
 
