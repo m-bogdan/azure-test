@@ -173,10 +173,10 @@
 			},
 			"storageProfile": {
 				"imageReference" : {
-					"publisher": "Canonical",
-					"offer": "UbuntuServer",
-					"sku" : "14.10",
-					"version" : "latestx"
+					"publisher": "[variables('imagePublisher')]",
+					"offer": "[variables('imageOffer')]",
+					"sku" : "[variables('imageSku')]",
+					"version" : "[variables('imageVersion')]"
 				},
 				"osDisk" : {
 					"name" : "[concat(parameters('vmName'),'-osDisk')]",
