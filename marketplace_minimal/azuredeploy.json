@@ -176,7 +176,7 @@
 					"publisher": "Canonical",
 					"offer": "UbuntuServer",
 					"sku" : "14.10",
-					"version" : "latest"
+					"version" : "latestx"
 				},
 				"osDisk" : {
 					"name" : "[concat(parameters('vmName'),'-osDisk')]",
