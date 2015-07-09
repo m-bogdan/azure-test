@@ -45,12 +45,14 @@
 		},
 		"primaryHABoxIP" : {
 			"type" : "string",
+			"defaultValue": "10.0.0.4",
 			"metadata" : {
 				"description" : "Static IP of active HA Box"
 			}
 		},
 		"secondaryHABoxIP" : {
 			"type" : "string",
+			"defaultValue": "10.0.0.5",
 			"metadata" : {
 				"description" : "Static IP of inactive HA Box"
 			}
