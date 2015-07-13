@@ -104,7 +104,7 @@
 		"lbPoolID": "[concat(variables('lbID'),'/backendAddressPools/BackendPool1')]",
 		"lbSSLProbeID": "[concat(variables('lbID'),'/probes/tcpSSLProbe')]",
 		"lbVPNProbeID": "[concat(variables('lbID'),'/probes/tcpVPNProbe')]",
-		"userImageName" : "[concat('http://',parameters('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',variables('userImageVhdName'))]",
+		"userImageName" : "[concat('http://','bmstoragex','.blob.core.windows.net/','bm-vhd','/',variables('userImageVhdName'))]",
 		"osDiskVhdName" : "[concat('http://',parameters('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',parameters('vmName'),'osDisk')]"
 	},
 	"resources": [
