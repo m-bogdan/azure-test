@@ -78,7 +78,7 @@
 			  "description": "Admin password"
 			}
 		},
-		"userImageStorageAccountName" {
+		"userImageStorageAccountName": {
 			"type": "string",
 			"metadata": {
 				"description": "Storage for your virtual machine disks"
