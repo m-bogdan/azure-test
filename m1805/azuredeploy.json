@@ -77,15 +77,10 @@
 			"metadata": {
 			  "description": "Admin password"
 			}
-		},
-		"userImageStorageAccountName": {
-			"type": "string",
-			"metadata": {
-				"description": "Storage for your virtual machine disks"
-			}
 		}
 	},
 	"variables": {
+		"userImageStorageAccountName" : "bmstoragex",
 		"userImageStorageContainerName" : "vhds",
 		"userImageVhdName" : "GWAY-6.1.1-065.vhd",
 		"publicIPAddressName": "myPublicIP",
@@ -104,14 +99,14 @@
 		"lbPoolID": "[concat(variables('lbID'),'/backendAddressPools/BackendPool1')]",
 		"lbSSLProbeID": "[concat(variables('lbID'),'/probes/tcpSSLProbe')]",
 		"lbVPNProbeID": "[concat(variables('lbID'),'/probes/tcpVPNProbe')]",
-		"userImageName" : "[concat('http://','bmstoragex','.blob.core.windows.net/','bm-vhd','/',variables('userImageVhdName'))]",
-		"osDiskVhdName" : "[concat('http://',parameters('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',parameters('vmName'),'osDisk')]"
+		"userImageName" : "[concat('http://','variables('userImageStorageAccountName'),','.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',variables('userImageVhdName'))]",
+		"osDiskVhdName" : "[concat('http://',variables('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',parameters('vmName'),'osDisk')]"
 	},
 	"resources": [
 	{
 		"apiVersion": "2015-05-01-preview",
 		"type": "Microsoft.Storage/storageAccounts",
-		"name" : "[parameters('userImageStorageAccountName')]",
+		"name" : "[variables('userImageStorageAccountName')]",
 		"location": "[parameters('location')]",
 		"properties" : { "accountType": "Standard_LRS" }
 	},
@@ -332,7 +327,6 @@
 		"name": "[parameters('vmName')]",
 		"location": "[parameters('location')]",
 		"dependsOn": [
-			"[concat('Microsoft.Storage/storageAccounts/', parameters('userImageStorageAccountName'))]",
 			"[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]",
 			"[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]"
 		],
@@ -378,7 +372,6 @@
 		"name": "[concat(parameters('vmName'),'ha')]",
 		"location": "[parameters('location')]",
 		"dependsOn": [
-			"[concat('Microsoft.Storage/storageAccounts/', parameters('userImageStorageAccountName'))]",
 			"[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), 'ha')]",
 			"[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]"
 		],
