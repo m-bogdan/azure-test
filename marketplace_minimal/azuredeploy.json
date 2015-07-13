@@ -4,7 +4,6 @@
 	"parameters" : {
 		"vmName": {
 			"type": "string",
-			"defaultValue": "ngfw-xx",
 			"metadata": {
 				"description": "Name of the primary VM"
 			}
@@ -45,6 +44,7 @@
 		},
 		"primaryHABoxIP" : {
 			"type" : "string",
+			"defaultValue": "10.0.0.4",
 			"metadata" : {
 				"description" : "Static IP of active HA Box"
 			}
@@ -69,11 +69,16 @@
 			"metadata": {
 			  "description": "Admin password"
 			}
+		},
+		"userImageStorageAccountName": {
+			"type": "string",
+			"metadata": {
+				"description": "Storage for your virtual machine disks"
+			}
 		}
 	},
 	"variables": {
-		"userImageStorageAccountName" : "bmstoragex",
-		"userImageStorageContainerName" : "bm-vhd",
+		"userImageStorageContainerName" : "vhds",
 		"imagePublisher" : "barracudanetworks",
 		"imageOffer" : "barracuda-ng-firewall",
 		"imageSku" : "hourly",
@@ -94,7 +99,7 @@
 		"lbPoolID": "[concat(variables('lbID'),'/backendAddressPools/BackendPool1')]",
 		"lbSSLProbeID": "[concat(variables('lbID'),'/probes/tcpSSLProbe')]",
 		"lbVPNProbeID": "[concat(variables('lbID'),'/probes/tcpVPNProbe')]",
-		"osDiskVhdName" : "[concat('http://',variables('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',parameters('vmName'),'osDisk')]"
+		"osDiskVhdName" : "[concat('http://',parameters('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',parameters('vmName'),'osDisk')]"
 	},
 	"resources": [
 	{
@@ -160,6 +165,7 @@
 		"name": "[parameters('vmName')]",
 		"location": "[parameters('location')]",
 		"dependsOn": [
+			"[concat('Microsoft.Storage/storageAccounts/', parameters('userImageStorageAccountName'))]",
 			"[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
 		],
 		"properties": {
