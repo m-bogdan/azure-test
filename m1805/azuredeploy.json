@@ -80,8 +80,8 @@
 		}
 	},
 	"variables": {
-		"userImageStorageAccountName" : "bmstoragex",
-		"userImageStorageContainerName" : "bm-vhd",
+		"userImageStorageAccountName" : "hastorage",
+		"userImageStorageContainerName" : "vhds",
 		"userImageVhdName" : "GWAY-6.1.1-065.vhd",
 		"publicIPAddressName": "myPublicIP",
 		"nicName": "myVMNic",
@@ -103,6 +103,13 @@
 		"osDiskVhdName" : "[concat('http://',variables('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',parameters('vmName'),'osDisk')]"
 	},
 	"resources": [
+	{
+		"apiVersion": "2015-05-01-preview",
+		"type": "Microsoft.Storage/storageAccounts",
+		"name" : "[variables('userImageStorageAccountName')]",
+		"location": "[parameters('location')]",
+		"properties" : { "accountType": "Standard_LRS" }
+	},
 	{
 		"apiVersion": "2015-05-01-preview",
 		"type": "Microsoft.Compute/availabilitySets",
@@ -320,6 +327,7 @@
 		"name": "[parameters('vmName')]",
 		"location": "[parameters('location')]",
 		"dependsOn": [
+			"[concat('Microsoft.Storage/storageAccounts/', variables('userImageStorageAccountName'))]",
 			"[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]",
 			"[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]"
 		],
@@ -365,6 +373,7 @@
 		"name": "[concat(parameters('vmName'),'ha')]",
 		"location": "[parameters('location')]",
 		"dependsOn": [
+			"[concat('Microsoft.Storage/storageAccounts/', variables('userImageStorageAccountName'))]",
 			"[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), 'ha')]",
 			"[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]"
 		],
