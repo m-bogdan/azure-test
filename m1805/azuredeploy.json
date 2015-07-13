@@ -105,13 +105,6 @@
 	"resources": [
 	{
 		"apiVersion": "2015-05-01-preview",
-		"type": "Microsoft.Storage/storageAccounts",
-		"name" : "[variables('userImageStorageAccountName')]",
-		"location": "[parameters('location')]",
-		"properties" : { "accountType": "Standard_LRS" }
-	},
-	{
-		"apiVersion": "2015-05-01-preview",
 		"type": "Microsoft.Compute/availabilitySets",
 		"name": "[variables('availabilitySetName')]",
 		"location": "[parameters('location')]",
