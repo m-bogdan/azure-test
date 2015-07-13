@@ -77,13 +77,13 @@
 			"metadata": {
 			  "description": "Admin password"
 			}
-		}
+		},
 		"userImageStorageAccountName" {
 			"type": "string",
 			"metadata": {
 				"description": "Storage for your virtual machine disks"
 			}
-		},
+		}
 	},
 	"variables": {
 		"userImageStorageContainerName" : "vhds",
