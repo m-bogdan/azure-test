@@ -82,7 +82,7 @@
 		"imagePublisher" : "barracudanetworks",
 		"imageOffer" : "barracuda-ng-firewall",
 		"imageSku" : "hourly",
-		"imageVersion" : "6.1.0112",
+		"imageVersion" : "6.0.01033",
 		"publicIPAddressName": "myPublicIP",
 		"nicName": "myVMNic",
 		"publicIPAddressType" : "Dynamic",
