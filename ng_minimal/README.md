@@ -8,5 +8,5 @@ The disk attached to the new virtual machine will be created in bmstoragex stora
 
 | Name | Description
 |:--- |:---|
-|vmName | Name of the primary VM, an "ha" is added for the secondary box|
+|vmName | Name of the primary VM, an "vm" is added for the secondary box|
 |adminPassword| Initial password for root user on both boxes|
