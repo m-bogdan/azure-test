@@ -82,7 +82,7 @@
 	"variables": {
 		"userImageStorageAccountName" : "bmstoragex",
 		"userImageStorageContainerName" : "bm-vhd",
-		"userImageVhdName" : "GWAY-6.1.1-065.vhd",
+		"userImageVhdName" : "GWAY-7.0.0-407.nightbuild-Azure-PAYG.vhd",
 		"publicIPAddressName": "myPublicIP",
 		"nicName": "myVMNic",
 		"publicIPAddressType" : "Dynamic",
