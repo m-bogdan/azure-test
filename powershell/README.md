@@ -1,11 +1,11 @@
-# marketplace_minimal
+# powershell
 test for arm templates from marketplace
 
 [![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/)
 
 See it in portal:
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fm-bogdan%2Fazure-test%2Fmaster%2Fmarketplace%5Fminimal%2Fazuredeploy.json" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fm-bogdan%2Fazure-test%2Fmaster%2Fpowershell%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
