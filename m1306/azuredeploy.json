@@ -82,7 +82,7 @@
 		"imagePublisher": "barracudanetworks",
 		"imageOffer": "barracuda-ng-firewall",
 		"imageSku": "byol",
-		"newStorageAccountName" : "hd",
+		"newStorageAccountName" : "diskdrive",
 		"vmStorageAccountContainerName" : "vhds",
 		"storageAccountType" : "Standard_LRS",
 		"userImageStorageContainerName" : "vhds",
