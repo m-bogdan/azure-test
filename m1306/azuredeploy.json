@@ -82,7 +82,7 @@
 		"imagePublisher": "barracudanetworks",
 		"imageOffer": "barracuda-ng-firewall",
 		"imageSku": "byol",
-		"newStorageAccountName" : "ngstorage",
+		"newStorageAccountName" : "[replace(concat('ngstorage', variables('vmName')), '-', '')]",
 		"vmStorageAccountContainerName" : "vhds",
 		"storageAccountType" : "Standard_LRS",
 		"publicIPAddressName": "myPublicIP",
