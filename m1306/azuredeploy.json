@@ -76,19 +76,6 @@
 			"metadata": {
 			  "description": "Admin password"
 			}
-		},
-		"userImageStorageAccountName" : {
-			"type" : "string",
-			"metadata": {
-				"description": "Unique DNS Name for the Public IP used to access the HA Cluster"
-			}
-		},
-		"userImageVhdName" : {
-			"type" : "string",
-			"defaultValue" : "GWAY-6.1.1-065.vhd",
-			"metadata": {
-				"description": "Unique DNS Name for the Public IP used to access the HA Cluster"
-			}
 		}
 	},
 	"variables": {
@@ -374,7 +361,7 @@
 					"caching" : "ReadWrite",
 					"createOption" : "FromImage",
 					"vhd" : {
-						"uri" : "[concat('http://',variables('newStorageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/',variables('osDiskVhdName'),'.vhd')]"
+						"uri" : "[concat('http://',variables('newStorageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/',parameters('vmName'),'.vhd')]"
 					}
 				}
 			},
@@ -422,7 +409,7 @@
 					"caching" : "ReadWrite",
 					"createOption" : "FromImage",
 					"vhd" : {
-						"uri" : "[concat('http://',variables('newStorageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/',variables('osDiskVhdName'),'ha','.vhd')]"
+						"uri" : "[concat('http://',variables('newStorageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/',parameters('vmName'),'ha','.vhd')]"
 					}
 				}
 			},
