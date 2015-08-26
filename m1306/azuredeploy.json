@@ -92,6 +92,12 @@
 		}
 	},
 	"variables": {
+		"imagePublisher": "barracudanetworks",
+		"imageOffer": "barracuda-ng-firewall",
+		"imageSku": "byol",
+		"newStorageAccountName" : "hd",
+		"vmStorageAccountContainerName" : "vhds",
+		"storageAccountType" : "Standard_LRS",
 		"userImageStorageContainerName" : "vhds",
 		"publicIPAddressName": "myPublicIP",
 		"nicName": "myVMNic",
@@ -113,6 +119,15 @@
 		"osDiskVhdName" : "[concat('https://',parameters('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',parameters('vmName'),'osDisk')]"
 	},
 	"resources": [
+	{
+		"type": "Microsoft.Storage/storageAccounts",
+		"name": "[variables('newStorageAccountName')]",
+		"apiVersion": "2015-05-01-preview",
+		"location": "[parameters('location')]",
+		"properties": {
+			"accountType": "[variables('storageAccountType')]"
+		}
+	},
 	{
 		"apiVersion": "2015-05-01-preview",
 		"type": "Microsoft.Compute/availabilitySets",
@@ -330,6 +345,7 @@
 		"name": "[parameters('vmName')]",
 		"location": "[parameters('location')]",
 		"dependsOn": [
+			"[concat('Microsoft.Storage/storageAccounts/', variables('newStorageAccountName'))]",
 			"[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]",
 			"[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]"
 		],
@@ -347,16 +363,18 @@
 				"customData" : "[base64(concat('{\"version\" : \"1.0\", \"dha\" : { \"flags\" : [\"primary\"], \"ip\" : \"', parameters('primaryHABoxIP'), '\", \"haip\" : \"', parameters('secondaryHABoxIP'), '\", \"gateway\" : \"', parameters('subnet1Prefix'), '\", \"password\" : \"', parameters('adminPassword'), '\" }}'))]"
 			},
 			"storageProfile": {
+				"imageReference" : {
+					"publisher": "[variables('imagePublisher')]",
+					"offer": "[variables('imageOffer')]",
+					"sku": "[variables('imageSku')]",
+					"version": "latest"
+				},
 				"osDisk" : {
 					"name" : "[concat(parameters('vmName'),'-osDisk')]",
-					"osType" : "[variables('osType')]",
 					"caching" : "ReadWrite",
 					"createOption" : "FromImage",
-					"image" : {
-						"uri" : "[variables('userImageName')]"
-					},
 					"vhd" : {
-						"uri" : "[concat(variables('osDiskVhdName'),'.vhd')]"
+						"uri" : "[concat('http://',variables('newStorageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/',variables('osDiskVhdName'),'.vhd')]"
 					}
 				}
 			},
@@ -375,6 +393,7 @@
 		"name": "[concat(parameters('vmName'),'ha')]",
 		"location": "[parameters('location')]",
 		"dependsOn": [
+			"[concat('Microsoft.Storage/storageAccounts/', variables('newStorageAccountName'))]",
 			"[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), 'ha')]",
 			"[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]"
 		],
@@ -392,16 +411,18 @@
 				"customData" : "[base64(concat('{\"version\" : \"1.0\", \"dha\" : { \"haip\" : \"', parameters('secondaryHABoxIP'), '\", \"gateway\" : \"', parameters('subnet1Prefix'), '\", \"password\" : \"', parameters('adminPassword'), '\" }}'))]"
 			},
 			"storageProfile": {
+				"imageReference" : {
+					"publisher": "[variables('imagePublisher')]",
+					"offer": "[variables('imageOffer')]",
+					"sku": "[variables('imageSku')]",
+					"version": "latest"
+				},
 				"osDisk" : {
 					"name" : "[concat(parameters('vmName'),'-osDisk')]",
-					"osType" : "[variables('osType')]",
 					"caching" : "ReadWrite",
 					"createOption" : "FromImage",
-					"image" : {
-						"uri" : "[variables('userImageName')]"
-					},
 					"vhd" : {
-						"uri" : "[concat(variables('osDiskVhdName'),'ha','.vhd')]"
+						"uri" : "[concat('http://',variables('newStorageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/',variables('osDiskVhdName'),'ha','.vhd')]"
 					}
 				}
 			},
