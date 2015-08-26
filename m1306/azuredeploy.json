@@ -82,7 +82,7 @@
 		"imagePublisher": "barracudanetworks",
 		"imageOffer": "barracuda-ng-firewall",
 		"imageSku": "byol",
-		"newStorageAccountName" : "diskdrives",
+		"newStorageAccountName" : "ngstorage",
 		"vmStorageAccountContainerName" : "vhds",
 		"storageAccountType" : "Standard_LRS",
 		"publicIPAddressName": "myPublicIP",
