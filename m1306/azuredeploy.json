@@ -334,6 +334,11 @@
 			"[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]",
 			"[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]"
 		],
+		"plan": {
+			 "name": "[variables('imageSku')]",
+			 "Product": "[variables('imageOffer')]",
+			 "Publisher": "[variables('imagePublisher')]"
+		},
 		"properties": {
 			"availabilitySet" : {
 				"id": "[resourceId('Microsoft.Compute/availabilitySets',variables('availabilitySetName'))]"
@@ -382,6 +387,11 @@
 			"[concat('Microsoft.Network/networkInterfaces/', variables('nicName'), 'ha')]",
 			"[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]"
 		],
+		"plan": {
+			 "name": "[variables('imageSku')]",
+			 "Product": "[variables('imageOffer')]",
+			 "Publisher": "[variables('imagePublisher')]"
+		},
 		"properties": {
 			"availabilitySet" : {
 				"id": "[resourceId('Microsoft.Compute/availabilitySets',variables('availabilitySetName'))]"
