@@ -4,7 +4,6 @@
 	"parameters" : {
 		"vmName": {
 			"type": "string",
-			"defaultValue": "",
 			"metadata": {
 				"description": "Name of the primary VM"
 			}
