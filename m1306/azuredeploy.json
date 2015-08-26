@@ -82,10 +82,9 @@
 		"imagePublisher": "barracudanetworks",
 		"imageOffer": "barracuda-ng-firewall",
 		"imageSku": "byol",
-		"newStorageAccountName" : "diskdrive",
+		"newStorageAccountName" : "diskdrives",
 		"vmStorageAccountContainerName" : "vhds",
 		"storageAccountType" : "Standard_LRS",
-		"userImageStorageContainerName" : "vhds",
 		"publicIPAddressName": "myPublicIP",
 		"nicName": "myVMNic",
 		"publicIPAddressType" : "Dynamic",
@@ -364,7 +363,7 @@
 					"caching" : "ReadWrite",
 					"createOption" : "FromImage",
 					"vhd" : {
-						"uri" : "[concat('http://',variables('newStorageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/',parameters('vmName'),'.vhd')]"
+						"uri" : "[concat('https://',variables('newStorageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/',parameters('vmName'),'.vhd')]"
 					}
 				}
 			},
@@ -417,7 +416,7 @@
 					"caching" : "ReadWrite",
 					"createOption" : "FromImage",
 					"vhd" : {
-						"uri" : "[concat('http://',variables('newStorageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/',parameters('vmName'),'ha','.vhd')]"
+						"uri" : "[concat('https://',variables('newStorageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/',parameters('vmName'),'ha','.vhd')]"
 					}
 				}
 			},
