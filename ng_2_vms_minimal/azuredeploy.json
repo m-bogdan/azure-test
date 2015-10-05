@@ -168,9 +168,6 @@
 				"properties": {
 					"privateIPAllocationMethod": "Static",
 					"privateIPAddress" : "[parameters('firstBoxIP')]",
-					"publicIPAddress" : {
-						"id" : "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]"
-					},
 					"subnet": {
 						"id": "[variables('subnet1Ref')]"
 					}
@@ -195,9 +192,6 @@
 				"properties": {
 					"privateIPAllocationMethod": "Static",
 					"privateIPAddress" : "[parameters('secondBoxIP')]",
-					"publicIPAddress" : {
-						"id" : "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]"
-					},
 					"subnet": {
 						"id": "[variables('subnet1Ref')]"
 					}
