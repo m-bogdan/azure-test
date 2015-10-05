@@ -280,7 +280,7 @@
 			"networkProfile": {
 				"networkInterfaces" : [
 				{
-					"id": "[resourceId('Microsoft.Network/networkInterfaces',variables('nicNames'))]"
+					"id": "[resourceId('Microsoft.Network/networkInterfaces',variables('nicName2'))]"
 				}
 				]
 			}
