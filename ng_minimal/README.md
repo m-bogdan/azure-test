@@ -10,3 +10,5 @@ The disk attached to the new virtual machine will be created in bmstoragex stora
 |:--- |:---|
 |vmName | Name of the primary VM, an "vm" is added for the secondary box|
 |adminPassword| Initial password for root user on both boxes|
+|userImageStorageAccountName| Storage account for deployed VM |
+|userImageStorageContainerName| Container for deployed VM |

@@ -75,11 +75,23 @@
 			"metadata": {
 				"description": "Storage for your virtual machine disks"
 			}
+		},
+		"userImageStorageAccountName": {
+			"type": "string",
+			"default" : "cudademo",
+			"metadata": {
+				"description": "Storage account for deployed VM"
+			}
+		},
+		"userImageStorageContainerName": {
+			"type": "string",
+			"default" : "vhds",
+			"metadata": {
+				"description": "Container for deployed VM"
+			}
 		}
 	},
 	"variables": {
-		"userImageStorageContainerName" : "bm-vhd",
-		"userImageStorageAccountName" : "bmstoragex",
 		"publicIPAddressName": "myPublicIP",
 		"nicName": "myVMNic",
 		"publicIPAddressType" : "Dynamic",
@@ -96,7 +108,7 @@
 		"lbPoolID": "[concat(variables('lbID'),'/backendAddressPools/BackendPool1')]",
 		"lbSSLProbeID": "[concat(variables('lbID'),'/probes/tcpSSLProbe')]",
 		"lbVPNProbeID": "[concat(variables('lbID'),'/probes/tcpVPNProbe')]",
-		"osDiskVhdName" : "[concat('http://',variables('userImageStorageAccountName'),'.blob.core.windows.net/',variables('userImageStorageContainerName'),'/',parameters('vmName'),'osDisk')]"
+		"osDiskVhdName" : "[concat('http://',parameters('userImageStorageAccountName'),'.blob.core.windows.net/',parameters('userImageStorageContainerName'),'/',parameters('vmName'),'osDisk')]"
 	},
 	"resources": [
 	{
