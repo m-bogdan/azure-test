@@ -78,14 +78,14 @@
 		},
 		"userImageStorageAccountName": {
 			"type": "string",
-			"default" : "cudademo",
+			"defaultValue" : "cudademo",
 			"metadata": {
 				"description": "Storage account for deployed VM"
 			}
 		},
 		"userImageStorageContainerName": {
 			"type": "string",
-			"default" : "vhds",
+			"defaultValue" : "vhds",
 			"metadata": {
 				"description": "Container for deployed VM"
 			}
