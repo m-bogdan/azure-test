@@ -1,11 +1,11 @@
 # HA CLuster Setup for PAYG boxes
-This is an Azure Resource Management template that deploys 2 NG Firewall boxes in an HA setup.
+This is an Azure Resource Management template that deploys 2 NG Firewall boxes in an HA setup. (with custom images)
 
 [![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/)
 
 Different view for the template (but exactly the same functionality), embedded directly in Azure portal:
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fm-bogdan%2Fazure-test%2Fmaster%2Fm1805%2Fazuredeploy.json" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fm-bogdan%2Fazure-test%2Fmaster%2Fha-scenario-custom-image%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
@@ -24,3 +24,6 @@ Template parameters:
 |Location|Data center where the boxes are created|
 |Vm Size|Size of the Azure box|
 |Admin Password|Initial password for root user on both boxes|
+|userImageVhdURI|HTTP address to custom image|
+|userImageStorageAccountName|ARM storage account - must contain userImageVhdURI|
+|userImageStorageContainerName|ARM container - must contain userImageVhdURI|
