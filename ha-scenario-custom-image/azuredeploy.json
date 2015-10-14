@@ -360,6 +360,7 @@
 			"storageProfile": {
 				"osDisk" : {
 					"name" : "[concat(parameters('vmName'),'-osDisk')]",
+					"osType" : "[variables('osType')]",
 					"caching" : "ReadWrite",
 					"createOption" : "FromImage",
 					"image" : {
@@ -404,6 +405,7 @@
 			"storageProfile": {
 				"osDisk" : {
 					"name" : "[concat(parameters('vmName'),'-osDisk')]",
+					"osType" : "[variables('osType')]",
 					"caching" : "ReadWrite",
 					"createOption" : "FromImage",
 					"image" : {
