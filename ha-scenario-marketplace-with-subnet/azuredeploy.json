@@ -44,7 +44,7 @@
 		},
 		"subnet1Gateway": {
 			"type": "string",
-			"defaultValue": "10.0.0.1/24",
+			"defaultValue": "",
 			"metadata": {
 				"description": "Default Gateway, if empty it will be computed from subnet1Prefix"
 			}
