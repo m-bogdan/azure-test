@@ -3,7 +3,7 @@ This is an Azure Resource Management template that deploys 2 NG Firewall boxes i
 
 [![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/)
 
-Template parameters:
+### Template parameters: ###
 
 | Name | Description
 |:--- |:---|
@@ -18,3 +18,10 @@ Template parameters:
 |Location|Data center where the boxes are created|
 |Vm Size|Size of the Azure box|
 |Admin Password|Initial password for root user on both boxes|
+
+
+#### Custom data ####
+We also send custom data based on input parameters, and for legacy consistency, we have to
+maintain not-so-good nameing for variables:
+* _gateway_ : is infact the subnet
+* _hexthop_ : is infact the gateway ip

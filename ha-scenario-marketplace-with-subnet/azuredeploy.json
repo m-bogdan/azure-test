@@ -356,7 +356,7 @@
 				"computername": "[parameters('vmName')]",
 				"adminUsername": "[variables('adminUsername')]",
 				"adminPassword": "[parameters('adminPassword')]",
-				"customData" : "[base64(concat('{\"version\" : \"1.0\", \"dha\" : { \"flags\" : [\"primary\"], \"ip\" : \"', parameters('primaryHABoxIP'), '\", \"haip\" : \"', parameters('secondaryHABoxIP'), '\", \"subnet\" : \"', parameters('subnet1Prefix'), '\", \"gateway\" : \"', parameters('subnet1Gateway'), '\", \"password\" : \"', parameters('adminPassword'), '\" }}'))]"
+				"customData" : "[base64(concat('{\"version\" : \"1.0\", \"dha\" : { \"flags\" : [\"primary\"], \"ip\" : \"', parameters('primaryHABoxIP'), '\", \"haip\" : \"', parameters('secondaryHABoxIP'), '\", \"gateway\" : \"', parameters('subnet1Prefix'), '\", \"nexthop\" : \"', parameters('subnet1Gateway'), '\", \"password\" : \"', parameters('adminPassword'), '\" }}'))]"
 			},
 			"storageProfile": {
 				"imageReference" : {
@@ -409,7 +409,7 @@
 				"computername": "[concat(parameters('vmName'),'ha')]",
 				"adminUsername": "[variables('adminUsername')]",
 				"adminPassword": "[parameters('adminPassword')]",
-				"customData" : "[base64(concat('{\"version\" : \"1.0\", \"dha\" : { \"haip\" : \"', parameters('secondaryHABoxIP'), '\", \"subnet\" : \"', parameters('subnet1Prefix'), '\", \"gateway\" : \"', parameters('subnet1Gateway'), '\", \"password\" : \"', parameters('adminPassword'), '\" }}'))]"
+				"customData" : "[base64(concat('{\"version\" : \"1.0\", \"dha\" : { \"haip\" : \"', parameters('secondaryHABoxIP'), '\", \"gateway\" : \"', parameters('subnet1Prefix'), '\", \"nexthop\" : \"', parameters('subnet1Gateway'), '\", \"password\" : \"', parameters('adminPassword'), '\" }}'))]"
 			},
 			"storageProfile": {
 				"imageReference" : {
