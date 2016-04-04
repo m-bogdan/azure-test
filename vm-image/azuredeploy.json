@@ -58,7 +58,7 @@
     "variables": {
         "location": "westeurope",
         "publicIPAddressName": "demo-ngfwMgmtIP",
-        "vmName": "GWAY-6.1.0-112-AzureVC400.vhd",
+        "vmName": "bm-0404e",
         "virtualNetworkName": "demo-cloud-network",
         "nicName": "demo-em1",
         "addressPrefix":"10.0.0.0/16",
