@@ -230,12 +230,6 @@
 				"adminPassword": "[parameters('adminPassword')]"
 			},
 			"storageProfile": {
-				"imageReference" : {
-					"publisher": "[variables('imagePublisher')]",
-					"offer": "[variables('imageOffer')]",
-					"sku" : "[variables('imageSku')]",
-					"version":"latest"
-				},
 				"osDisk" : {
 					"name" : "[concat(parameters('vmName'),'-osDisk')]",
 					"osType" : "[variables('osType')]",
@@ -276,12 +270,6 @@
 				"adminPassword": "[parameters('adminPassword')]"
 			},
 			"storageProfile": {
-				"imageReference" : {
-					"publisher": "[variables('imagePublisher')]",
-					"offer": "[variables('imageOffer')]",
-					"sku" : "[variables('imageSku')]",
-					"version":"latest"
-				},
 				"osDisk" : {
 					"name" : "[concat(parameters('vmName'),'-osDisk2')]",
 					"osType" : "[variables('osType')]",
